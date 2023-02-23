@@ -5,7 +5,7 @@ import os
 import json
 from flask_cors import CORS
 from dotenv import load_dotenv
-load_dotenv('testPinecone\\backend\key.env')
+load_dotenv('./key.env')
 
 
 pinecone_api_key = os.environ.get('pinecone_api_key')
