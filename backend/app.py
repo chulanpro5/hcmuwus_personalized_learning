@@ -5,6 +5,7 @@ import os
 import json
 from flask_cors import CORS
 from dotenv import load_dotenv
+import textstat
 load_dotenv('./key.env')
 
 
@@ -92,6 +93,8 @@ def complete(prompt):
         stop=None
     )
     return res['choices'][0]['text'].strip()
+
+
 
 
 def feedback_processing(feedback):
