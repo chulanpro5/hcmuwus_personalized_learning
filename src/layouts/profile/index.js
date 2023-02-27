@@ -63,7 +63,7 @@ function Overview() {
         </Grid>
         <Grid container>
           <Grid item >
-            <Paper sx={{width: 350, height: 400, borderRadius: 10, padding: 4}}>
+            <Paper sx={{width: 500, height: 380, borderRadius: 20, padding: 4, marginLeft: 5}}>
               <MyCalendar />
             </Paper>
           </Grid>

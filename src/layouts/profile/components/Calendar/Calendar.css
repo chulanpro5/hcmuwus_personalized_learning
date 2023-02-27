@@ -1,15 +1,14 @@
-
 .react-calendar { 
-    width: 313px;
-    height: 330px;
+    width: 480px;
+    height: 350px;
     max-height: 100%;
+    padding: 5px;
+    margin: auto;
     max-width: 100%;
-    padding: 10px;
+    border-color: white;;
     background-color: #fff;
     color: #222;
-    border-color: white;
-    border-radius: 20px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
    }
@@ -91,3 +90,4 @@
     background: #6f48eb;
     color: white;
    }
+   

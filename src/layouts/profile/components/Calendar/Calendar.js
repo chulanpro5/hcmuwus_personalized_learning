@@ -2,6 +2,7 @@ import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Calendar.css';
+
 class MyCalendar extends React.Component {
     constructor(props) {
         super(props);
@@ -9,8 +10,7 @@ class MyCalendar extends React.Component {
 
 
     render() {
-        return ( <Calendar locale="en-EN"/>
-        );
+        return (<Calendar locale="en-EN"/>);
     }
 }
 
