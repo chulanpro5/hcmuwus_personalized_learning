@@ -55,10 +55,19 @@ function Overview() {
   return (
     <DashboardLayout>
       {/* <Header /> */}
-      <WelcomeMark />
       <VuiBox>
-        <Grid 
-          container 
+        <Grid container marginLeft={6} columns={24} sx={({ breakpoints }) => ({
+          [breakpoints.only('sm')]: {
+            direction: 'column',
+          },
+          [breakpoints.up('md')]: {
+            direction: 'row',
+          }
+        })}>
+          <WelcomeMark />
+        </Grid>
+        <Grid
+          container
           columns={12}
           sx={({ breakpoints }) => ({
             [breakpoints.only('sm')]: {
@@ -68,26 +77,26 @@ function Overview() {
               direction: 'row',
             }
           })}>
-          <Grid 
+          <Grid
             container
             item
             direction="column"
             justifyContent="center"
             alignItems="center"
             xs={6}
-            >
+          >
             <Grid item xs={12} md={6} xl={3}>
               <PerformanceChart />
             </Grid>
             <Grid item>
-              <Paper sx={{width: 500, height: 380, borderRadius: 10, padding: 4}}>
+              <Paper sx={{ width: 500, height: 380, borderRadius: 10, padding: 4 }}>
                 <MyCalendar />
               </Paper>
             </Grid>
           </Grid>
 
           <Grid container item xs={6}>
-              <MyBookshelf />
+            <MyBookshelf />
           </Grid>
         </Grid>
       </VuiBox>
