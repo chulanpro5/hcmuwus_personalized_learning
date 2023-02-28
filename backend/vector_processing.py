@@ -1,5 +1,5 @@
 import textstat
-import redis
+# import redis
 
 def get_metric_vector(context):
     #get value from The Flesch Reading Ease formula
@@ -29,4 +29,8 @@ def get_metric_vector(context):
 def append_vector_to_redis(context, vector):
     r = redis.Redis(host='localhost', port=6379, db=0)
     r.set(context, vector)
-    
+
+f = open("doc1.txt", "r", encoding="utf-8")
+context = f.read()
+ans = get_metric_vector(context)
+print(ans)
