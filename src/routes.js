@@ -99,26 +99,25 @@ const routes = [
     icon: <BsFillPersonFill size="15px" color="inherit" />,
     component: Profile,
     noCollapse: true,
-  }
-  // },
-  // {
-  //   type: "collapse",
-  //   name: "Sign In",
-  //   key: "sign-in",
-  //   route: "/authentication/sign-in",
-  //   icon: <IoIosDocument size="15px" color="inherit" />,
-  //   component: SignIn,
-  //   noCollapse: true,
-  // },
-  // {
-  //   type: "collapse",
-  //   name: "Sign Up",
-  //   key: "sign-up",
-  //   route: "/authentication/sign-up",
-  //   icon: <IoRocketSharp size="15px" color="inherit" />,
-  //   component: SignUp,
-  //   noCollapse: true,
-  // },
+  },
+  {
+    type: "collapse",
+    name: "Sign In",
+    key: "sign-in",
+    route: "/authentication/sign-in",
+    icon: <IoIosDocument size="15px" color="inherit" />,
+    component: SignIn,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    route: "/authentication/sign-up",
+    icon: <IoRocketSharp size="15px" color="inherit" />,
+    component: SignUp,
+    noCollapse: true,
+  },
 ];
 
 export default routes;

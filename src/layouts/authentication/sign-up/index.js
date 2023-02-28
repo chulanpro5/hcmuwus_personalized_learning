@@ -16,7 +16,7 @@
 
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -49,10 +49,36 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgSignIn from "assets/images/signUpImage.png";
 
+import jwt_decode from "jwt-decode"
+
 function SignIn() {
+  const [user, setUser] = useState({});
   const [rememberMe, setRememberMe] = useState(true);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+  const handleCallbackResponse = (res) => {
+    console.log("Encoded JWT ID Token: " + res.credential);
+    var userObject = jwt_decode(res.credential)
+    setUser(userObject)
+    console.log(userObject)
+    document.getElementById("signinDiv").hidden = true
+  }
+  const handleSignOut = () => {
+    setUser({});
+    document.getElementById("signinDiv").hidden = false;
+  }
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id: "366197597969-qh86apab0humd4326ooo4pok0aeifrkh.apps.googleusercontent.com",
+      callback: handleCallbackResponse
+    })
+
+    google.accounts.id.renderButton(
+      document.getElementById("signinDiv"),
+      { theme: "outline", size: "large"}
+    )
+  }, [])
 
   return (
     <CoverLayout
@@ -85,7 +111,7 @@ function SignIn() {
           >
             Register with
           </VuiTypography>
-          <Stack mb="25px" justifyContent="center" alignItems="center" direction="row" spacing={2}>
+          {/* <Stack mb="25px" justifyContent="center" alignItems="center" direction="row" spacing={2}>
             <GradientBorder borderRadius="xl">
               <a href="#">
                 <IconButton
@@ -170,8 +196,8 @@ function SignIn() {
                 </IconButton>
               </a>
             </GradientBorder>
-          </Stack>
-          <VuiTypography
+          </Stack> */}
+          {/* <VuiTypography
             color="text"
             fontWeight="bold"
             textAlign="center"
@@ -253,7 +279,9 @@ function SignIn() {
                 })}
               />
             </GradientBorder>
-          </VuiBox>
+          </VuiBox> */}
+          <div id="signinDiv"></div>
+          {user && (<p>{user.name}</p>)}
           <VuiBox display="flex" alignItems="center">
             <VuiSwitch color="info" checked={rememberMe} onChange={handleSetRememberMe} />
             <VuiTypography
@@ -267,8 +295,8 @@ function SignIn() {
             </VuiTypography>
           </VuiBox>
           <VuiBox mt={4} mb={1}>
-            <VuiButton color="info" fullWidth>
-              SIGN UP
+            <VuiButton color="info" fullWidth onClick={handleSignOut}>
+              {user ? "SIGN OUT" : "SIGN UP"}
             </VuiButton>
           </VuiBox>
           <VuiBox mt={3} textAlign="center">
