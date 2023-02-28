@@ -84,7 +84,7 @@ class PerformanceChart extends React.Component {
 
   render() {
     return (
-      <Paper sx={{width: 500, borderRadius: 20, height: 360, margin: 5, padding: 5}}>
+      <Paper sx={{width: 500, borderRadius: 10, height: 360, margin: 5, padding: 5}}>
           <VuiTypography color="black" variant="h3" fontWeight="bold">
             Performance
           </VuiTypography>
