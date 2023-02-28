@@ -82,12 +82,11 @@ function SignIn() {
 
   return (
     <CoverLayout
-      title="Welcome!"
+      title="REGISTRATION"
       color="white"
-      description="Use these awesome forms to login or create new account in your project for free."
       image={bgSignIn}
-      premotto="INSPIRED BY THE FUTURE:"
-      motto="THE VISION UI DASHBOARD"
+      premotto="PERSONALIZED LEARNING PLATFORM:"
+      motto="THE NEW WAY OF LEARNING"
       cardContent
     >
       <GradientBorder borderRadius={borders.borderRadius.form} minWidth="100%" maxWidth="100%">
@@ -289,6 +288,8 @@ function SignIn() {
               color="white"
               fontWeight="medium"
               onClick={handleSetRememberMe}
+              marginTop={2}
+              marginBottom={2}
               sx={{ cursor: "pointer", userSelect: "none" }}
             >
               &nbsp;&nbsp;&nbsp;&nbsp;Remember me
