@@ -1,0 +1,21 @@
+  /* Define the grid layout for the left column */
+  .left-column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  /* Define the grid layout for the right column */
+  .right-column {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  /* Define the style for the grid items */
+  .grid-item {
+    background-color: #ddd;
+    padding: 20px;
+    border: 1px solid #999;
+    text-align: center;
+  }
