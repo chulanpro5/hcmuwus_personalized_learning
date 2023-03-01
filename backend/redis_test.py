@@ -1,5 +1,4 @@
 #%%
-
 import openai
 import numpy as np
 from redis import Redis
@@ -16,7 +15,9 @@ INDEX_NAME = "VNU-HCMUS-free-db"
 
 n_vec = 10000
 dim = 1536
-vector_field_name = "vector"
+dim = 20
+
+vector_field_name = "v"
 rating_field_name = "rating"
 
 k = 10
@@ -27,6 +28,13 @@ documents = [
     "The lazy dog slept in the sun.",    
     "The quick brown fox ate the lazy dog."]
 
+def delete_data(client: Redis):
+    client.flushall()
+
+
+def create_index():
+    schema = (VectorField(vector_field_name, "HNSW", {"TYPE": "FLOAT32", "DIM": dim, "DISTANCE_METRIC": "L2"}))
+    r.ft(INDEX_NAME).create_index(schema)
 
 # Define a function to generate GPT-3 embeddings
 def get_embedding(text, model="text-embedding-ada-002"):
@@ -34,39 +42,29 @@ def get_embedding(text, model="text-embedding-ada-002"):
    return openai.Embedding.create(input = [text], model=model)['data'][0]['embedding']
 
     
+def add_to_db(key : str, text : str):
+    r.hset(key, mapping= {vector_field_name : np.array(get_embedding(text=text)[:dim], dtype=np.float32).tobytes(),
+                          rating_field_name: 10.0})
+
 # Generate embeddings for all documents in the corpus
 def test_input():
-    embeddings = {}
+
     for i, document in enumerate(documents):
-        embeddings[i] = get_embedding(document)
-
-    # Store embeddings in Redis
-    for i, embedding in embeddings.items():
-        # print(str(i) + ": " + str(embedding[:10]))
-        embedding = np.array(embedding, dtype=np.float32)[:dim]
         key =f'Hello_{i}'
-        #print(embedding.tobytes())
-        r.hset(key, mapping = {vector_field_name : embedding.tobytes(),
-                               rating_field_name : "Hihi"})
+        add_to_db(key, document)
 
-def delete_data(client: Redis):
-    client.flushall()
+        
 
-
-def create_index():
-    schema = (VectorField(vector_field_name, "HNSW", {"TYPE": "FLOAT32", "DIM": dim, "DISTANCE_METRIC": "L2"}),
-            NumericField(rating_field_name))
-    r.ft(INDEX_NAME).create_index(schema)
 
 #%%
 
 def search(query: str, k: int = 5):
-    embedding = get_embedding(query)
-    query_vector = np.array(embedding, dtype=np.float32).tobytes()[:dim]
+    embedding = get_embedding(text = query)
+    query_vector = np.array(embedding[:dim], dtype=np.float32).tobytes()
     
     # Prepare the Query
-    base_query = f'*=>[KNN {k} @vector_field_name $query]'
-    query = Query(base_query).dialect(2)
+    base_query = f'*=>[KNN {k} @{vector_field_name} $query]'
+    query = Query(base_query).sort_by(vector_field_name).dialect(2)
     params_dict = {"query": query_vector}
     # Vector Search in Redis
     results = r.ft(index_name= INDEX_NAME).search(query, query_params = params_dict)
@@ -80,7 +78,8 @@ create_index()
 test_input()
 # %%
 
-print(search("The quick brown fox jumps over the lazy dog."))
+
+search("The quick brown fox jumps over the lazy dog.").docs[0].id
 # Output: ['The lazy dog slept in the sun.', 'The quick brown fox jumps over the lazy dog.', 'The quick brown fox ate the lazy dog.']
 
 #print(search("man's best friend"))
@@ -90,20 +89,6 @@ print(search("The quick brown fox jumps over the lazy dog."))
 #%%
 
 print("Index size: ", r.ft(INDEX_NAME).info()['num_docs'])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -156,19 +141,19 @@ print_results(res)
 # %%
 delete_data(r)
 # %%
-schema = (VectorField("v", "HNSW", {"TYPE": "FLOAT32", "DIM": 10, "DISTANCE_METRIC": "COSINE"}),)
+schema = (VectorField("v", "HNSW", {"TYPE": "FLOAT32", "DIM": dim, "DISTANCE_METRIC": "COSINE"}),)
 r.ft().create_index(schema)
 
-r.hset("a", mapping= {"v": np.array(get_embedding(text="aaa")[:10], dtype=np.float32).tobytes()})
-r.hset("b", mapping= {"v": np.array(get_embedding(text="abc")[:10], dtype=np.float32).tobytes()})
-r.hset("c", mapping= {"v": np.array(get_embedding(text="cdef")[:10], dtype=np.float32).tobytes()})
+r.hset("a", mapping= {"v": np.array(get_embedding(text=documents[0])[:dim], dtype=np.float32).tobytes()})
+r.hset("b", mapping= {"v": np.array(get_embedding(text=documents[1])[:dim], dtype=np.float32).tobytes()})
+r.hset("c", mapping= {"v": np.array(get_embedding(text=documents[2])[:dim], dtype=np.float32).tobytes()})
 #%%
 q = Query("*=>[KNN 2 @v $vec]").return_field("__v_score").dialect(2)
-r.ft().search(q, query_params={"vec": np.array(get_embedding(text="aaa")[:10], dtype=np.float32).tobytes()})
+r.ft("idx").search(q, query_params={"vec": np.array(get_embedding(text=documents[0])[:dim], dtype=np.float32).tobytes()})
 # %%
 
 
-print(len(get_embedding(text="dakjfhkjbhaksdfhakjshksdf")))
+print(len(get_embedding(text=documents[0])))
 
 # %%
 
