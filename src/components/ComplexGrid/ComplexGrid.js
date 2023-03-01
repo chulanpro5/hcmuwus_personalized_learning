@@ -63,11 +63,11 @@ export default function ComplexGrid(props) {
     <Button>
       <Grid container spacing={2} justifyContent='center' alignItems={'center'}>
         <Grid item>
-          <CircularProgressWithLabel value={props.progress} />
+          <CircularProgressWithLabel value={props.progress} color="success" size={70}/>
         </Grid>
         <Grid item xs>
           <Typography gutterBottom variant="subtitle1" component="div">
-            {props.title}
+            <p style={{fontSize:20, fontFamily: "Arial", color: "green", fontWeight: 15}}>{props.title}</p>
           </Typography>
         </Grid>
       </Grid>

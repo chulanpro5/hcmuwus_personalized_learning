@@ -46,7 +46,7 @@ const books = [
 export default function MyBookshelf() {
     return (
     <Paper sx={{width: 500, height: 780, borderRadius: 10, marginTop:5}}>      
-        <VuiTypography color="black" variant="h3" fontWeight="bold" margin={5} marginBottom={1} overflowX="hidden">
+        <VuiTypography color="black" variant="h3" fontWeight="bold" margin={5} marginBottom={1} overflowX="hidden" marginLeft={6}>
             Completion Progress
         </VuiTypography>
         <Grid sx={{width: 500, height: 650, padding:4, marginTop:0, paddingTop:0,overflowY:"scroll",overflowX:"hidden"}} >

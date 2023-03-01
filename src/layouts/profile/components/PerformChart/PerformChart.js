@@ -21,28 +21,37 @@ class PerformanceChart extends React.Component {
             }
           },
           background: "white",
+          
         },
         colors: this.colors,
+        theme: {
+          monochrome: {
+            enabled: true,
+            color: '#255aee',
+            shadeTo: 'light',
+            shadeIntensity: 0.65
+          }
+        },
         fill: {
           colors: ["#0077FF", "#0077FF", "#0077FF", "#0077FF", "#0077FF", "#0077FF", "#0077FF"],
           opacity: 0.9,
           type: 'solid',
           gradient: {
-              shade: 'dark',
-              type: "horizontal",
-              shadeIntensity: 0.9,
-              gradientToColors: "black",
-              inverseColors: true,
-              opacityFrom: 0.5,
-              opacityTo: 1,
-              stops: [0, 50, 100],
-              colorStops: []
+            shade: 'dark',
+            type: "horizontal",
+            shadeIntensity: 0.9,
+            gradientToColors: "black",
+            inverseColors: true,
+            opacityFrom: 0.5,
+            opacityTo: 1,
+            stops: [0, 50, 100],
+            colorStops: []
           },
           pattern: {
-              style: 'verticalLines',
-              width: 6,
-              height: 6,
-              strokeWidth: 2,
+            style: 'verticalLines',
+            width: 6,
+            height: 6,
+            strokeWidth: 2,
           },
         },
         plotOptions: {
@@ -69,12 +78,15 @@ class PerformanceChart extends React.Component {
           ],
           labels: {
             style: {
-              colors: this.colors,
-              fontSize: '12px'
+              colors: "darkblue",
+              fontSize: '12px',
+              fontWeight: 'bold'
             }
           }
-        }
+        },
+        
       },
+      
 
 
     };
@@ -84,11 +96,11 @@ class PerformanceChart extends React.Component {
 
   render() {
     return (
-      <Paper sx={{width: 500, borderRadius: 10, height: 360, margin: 5, padding: 5}}>
-          <VuiTypography color="black" variant="h3" fontWeight="bold">
-            Performance
-          </VuiTypography>
-          <ReactApexChart options={this.state.options} series={this.state.series} type="bar" height={249.77} width={414} sx={{}}/>
+      <Paper sx={{ width: 500, borderRadius: 10, height: 360, margin: 5, padding: 5 }}>
+        <VuiTypography color="black" variant="h3" fontWeight="bold">
+          Performance
+        </VuiTypography>
+        <ReactApexChart options={this.state.options} series={this.state.series} type="bar" height={249.77} width={414}  />
       </Paper>
     );
   }
