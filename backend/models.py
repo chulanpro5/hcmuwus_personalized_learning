@@ -10,21 +10,41 @@ MAX_TOKENS = 1600
 TEMPERATURE = 0
 
 # load prompt from json file
-prompt_list = json.load("./prompt.json")
+with open('prompt.json', 'r') as f:
+    prompt_list = json.load(f)
 
 openai.api_key = os.environ.get('openai_api_key')
 
-def split_paragraph(paragraph: str, max_tokens: int = MAX_TOKENS):
-    prompt = "Chunk the context to 3 - 5 paragraphs. Show exactly the paragraphs without modification, return the answer using this format {'chunk a','chunk b','chunk c'}\n" + str + "Result:\n"
+def complete(prompt: str) -> str:
     response = openai.Completion.create(
         engine = OPENAI_COMPLETIONS_ENGINE,
         prompt = prompt,
-        max_tokens = max_tokens,
+        max_tokens = MAX_TOKENS,
         n = 1,
         stop = None,
         temperature = TEMPERATURE,
     )
     return response.choices[0].text.strip()
+
+def split_document(paragraph: str) -> list:
+    # print("slit document")
+    prompt = prompt_list["split_document"]["prefix"] + paragraph + prompt_list["split_document"]["suffix"]
+    response = json.loads(complete(prompt).replace('\n','')) # remove newline character
+
+    return response
+
+def extract_topic(paragraph: str) -> list:
+    # print("extract topic")
+    prompt = prompt_list["extract_topic"]["prefix"] + paragraph + prompt_list["extract_topic"]["suffix"]
+    response = json.loads(complete(prompt))
+
+    return response
+
+def summarize_paragraph(paragraph: str) -> str:
+    # print("summarize paragraph")
+    prompt = prompt_list["summarize"]["prefix"] + paragraph + prompt_list["summarize"]["suffix"]
+    response = json.loads(complete(prompt))[0]
+    return response
 
 # def paraphrase_paragraph(paragraph: str, max_tokens: int = MAX_TOKENS) -> str:
 #     prompt = "paraphrase the following paragraph by these requirement :\n\n" + paragraph + "\n\n1."
@@ -53,41 +73,25 @@ def paraphrase_paragraph(extracted-topic):
 
             - insert the paraphrased text into the paragraph: insert_paragraph()
     
-    - paraphrase hole paragraph
+    - paraphrase whole paragraph
     - return the paragraph
 """
 
-def extract_topic(paragraph: str, max_tokens: int = MAX_TOKENS) -> list:
-    prompt = prompt_list["extract_topic"]["prefix"] + paragraph + prompt_list["extract_topic"]["suffix"]
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=max_tokens,
-        n=1,
-        stop=None,
-        temperature=TEMPERATURE,
-    )
-    return response.choices[0].text.strip()
-
 """
-    - Split the document into paragraphs: split_paragraph()
+    - Split the document into paragraphs: split_document()
 for each paragraph in the document:
     - extract the topic of the paragraph: extract_topic()
     - paraphrase the paragraph: paraphrase_paragraph(extract_topic)
 
 """
 
-f = open("doc.txt", "r", encoding="utf-8")
+f = open("wiki_1.txt", "r", encoding="utf-8")
 text = f.read()
 f.close()
 
-paragraphs = split_paragraph(text).split("\n\n")
-# print(paragraphs)
-
-# for i in range(len(paragraphs)):
-#     paragraphs[i] = paraphrase_paragraph(paragraphs[i])
-
-print(paragraphs)
+docs = split_document(text)
+for doc in docs:
+    print(summarize_paragraph(doc))
 
 
 """ Redis query
