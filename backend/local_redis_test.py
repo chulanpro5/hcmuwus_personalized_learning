@@ -8,10 +8,9 @@ from redis.commands.search.query import Query
 
 # Initialize OpenAI API with your API key
 openai.api_key = "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"
-host = "redis-19948.c302.asia-northeast1-1.gce.cloud.redislabs.com"
-port = 19948
-password = "q3YBUcKxlyppDWTJXnsUDmWVt6rzLOZY"
-r = Redis(host = host, port = port, password = password)
+host = "127.0.0.1"
+port = 6379
+r = Redis(host = host, port = port)
 INDEX_NAME = "VNU-HCMUS-free-db"
 
 n_vec = 10000
