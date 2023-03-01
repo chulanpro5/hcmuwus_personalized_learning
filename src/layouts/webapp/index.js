@@ -38,21 +38,20 @@ import projectsTableData from "layouts/tables/data/projectsTableData";
 import { useState, useEffect } from "react"
 import VuiButton from "components/VuiButton";
 import { BsArrowRepeat, BsStickies } from "react-icons/bs";
+import { MdFolder } from 'react-icons/md';
 
-function Webapp()
-{
+function Webapp() {
 
-    const [content, useContent] = useState("");
-    useEffect(() =>
-    {
+  const [content, useContent] = useState("");
+  useEffect(() => {
 
-    }, [])
+  }, [])
 
-    return (
-        <DashboardLayout>
-            <DashboardNavbar />
-            <VuiBox py={3} height={"100vh"}>
-                {/* <VuiBox mb={3}>
+  return (
+    <DashboardLayout>
+      <DashboardNavbar />
+      <VuiBox py={3} height={"100vh"}>
+        {/* <VuiBox mb={3}>
           <Card>
             <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb="22px">
               <VuiTypography variant="lg" color="white">
@@ -100,52 +99,65 @@ function Webapp()
             <Table columns={prCols} rows={prRows} />
           </VuiBox>
         </Card> */}
-                <Grid container spacing="3px" height="100%" display="flex" justifyContent="space-between">
-                    <Grid item xs={12} lg={1.75}>
-                        <VuiBox bgColor="light" height="100%" width="100%" borderRadius="lg" p={3}>
-                            breh
-                        </VuiBox>
-                    </Grid>
-                    <Grid item xs={12} lg={10}>
-                        <VuiBox 
-                            p={3} 
-                            height={"100%"} 
-                            bgColor="light" 
-                            borderRadius={"lg"}>
-                            {content != "" ? (
-                                <VuiBox>
-                                    breh
-                                </VuiBox>
-                            ) : (
-                                <VuiBox 
-                                    display="flex"
-                                    justifyContent="center"
-                                    alignItems="center"
-                                    height="100%"
-                                    flexDirection="column"
-                                    gap={3}
-                                    px="25%">
-                                    <VuiButton variant="contained" color="info">
-                                        <BsStickies size="15px" color="inherit" />
-                                        <VuiTypography variant="lg" color="light" mx={1} >
-                                            Upload New File...
-                                        </VuiTypography>
-                                    </VuiButton>
-                                    <VuiButton variant="contained" color="info">
-                                        <BsArrowRepeat size="15px" color="inherit"/>
-                                        <VuiTypography variant="lg" color="light" mx={1}>
-                                            Resume Learning
-                                        </VuiTypography>
-                                    </VuiButton>
-                                </VuiBox>
-                            )}
-                        </VuiBox>
-                    </Grid>
-                </Grid>
+        <Grid container spacing="3px" height="100%" display="flex" justifyContent="space-between">
+          <Grid item xs={12} lg={1.75}>
+            <VuiBox bgColor="light" height="100%" width="100%" borderRadius="lg" p={3} >
+              <VuiBox display="flex"
+                justifyContent="top"
+                alignItems="center"
+                height="5%"
+                flexDirection="column"
+                px="25%"
+                bgColor="light"
+                marginTop={-2}>
+                <VuiButton variant="contained" color="info" padding={1}>
+                  <MdFolder size="15px" color="inherit" />
+                  <VuiTypography variant="lg" color="light" mx={1} >
+                    Directory
+                  </VuiTypography>
+                </VuiButton>
+              </VuiBox>
             </VuiBox>
-            <Footer />
-        </DashboardLayout>
-    );
+          </Grid>
+          <Grid item xs={12} lg={10}>
+            <VuiBox
+              p={3}
+              height={"100%"}
+              bgColor="light"
+              borderRadius={"lg"}>
+              {content != "" ? (
+                <VuiBox>
+                  breh
+                </VuiBox>
+              ) : (
+                <VuiBox
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  height="100%"
+                  flexDirection="column"
+                  gap={3}
+                  px="25%">
+                  <VuiButton variant="contained" color="info">
+                    <BsStickies size="15px" color="inherit" />
+                    <VuiTypography variant="lg" color="light" mx={1} >
+                      Upload New File...
+                    </VuiTypography>
+                  </VuiButton>
+                  <VuiButton variant="contained" color="info">
+                    <BsArrowRepeat size="15px" color="inherit" />
+                    <VuiTypography variant="lg" color="light" mx={1}>
+                      Resume Learning
+                    </VuiTypography>
+                  </VuiButton>
+                </VuiBox>
+              )}
+            </VuiBox>
+          </Grid>
+        </Grid>
+      </VuiBox>
+    </DashboardLayout >
+  );
 }
 
 export default Webapp;

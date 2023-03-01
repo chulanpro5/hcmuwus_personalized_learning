@@ -7,7 +7,8 @@ import './bookshelf.css';
 import BookItem from "components/ComplexGrid/ComplexGrid";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
+import { observer } from 'mobx-react-lite';
+import CompletionProgressStore from 'stores/CompletionProgressStore';
 const books = [
     {
         title: "The Alchemist",
@@ -43,7 +44,9 @@ const books = [
     },
 ]
 
-export default function MyBookshelf() {
+function MyBookshelf() {
+    const store = new CompletionProgressStore();
+    books.forEach(book => store.addBook(book));
     return (
     <Paper sx={{width: 500, height: 780, borderRadius: 10, marginTop:5}}>      
         <VuiTypography color="black" variant="h3" fontWeight="bold" margin={5} marginBottom={1} overflowX="hidden" marginLeft={6}>
@@ -57,4 +60,6 @@ export default function MyBookshelf() {
     </Paper>
 );
 }
+
+export default observer(MyBookshelf);
 
