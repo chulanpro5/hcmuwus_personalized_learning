@@ -44,6 +44,7 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Webapp from "layouts/webapp";
+import Landing from "layouts/landingPage";
 
 // Vision UI Dashboard React icons
 import { IoRocketSharp } from "react-icons/io5";
@@ -126,6 +127,15 @@ const routes = [
     route: "/authentication/sign-up",
     icon: <IoRocketSharp size="15px" color="inherit" />,
     component: SignUp,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Landing Page",
+    key: "landing-page",
+    route: "/landing page",
+    icon: <IoRocketSharp size="15px" color="inherit" />,
+    component: Landing,
     noCollapse: true,
   },
 ];
