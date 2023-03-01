@@ -1,0 +1,6 @@
+{
+    "extract_topic" : {
+        "prefix": "Context:\nPreprocessing expands macros, pulls included source from header files, and strips off comments from source code: gcc -E source.c Assembly turns assembly language into machine code, except that any external function calls like printf are substituted with placeholders. Linking finally resolves the function calls by plugging in their actual addresses\nResult: {\"Gcc\", \"assembly\", \"machine code\", \"linking\"}\nContext:\n",
+        "suffix": "\nResult:\n"
+    }
+}
