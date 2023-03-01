@@ -112,7 +112,7 @@ function SignIn() {
           </VuiTypography>
         </VuiBox>
         <VuiBox mt={4} mb={1}>
-          <VuiButton color="info" fullWidth>
+          <VuiButton color="info" fullWidth href="/profile">
             SIGN IN
           </VuiButton>
         </VuiBox>

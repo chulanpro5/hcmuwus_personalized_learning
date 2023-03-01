@@ -49,56 +49,8 @@ function Webapp() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      {/* <DashboardNavbar /> */}
       <VuiBox py={3} height={"100vh"}>
-        {/* <VuiBox mb={3}>
-          <Card>
-            <VuiBox display="flex" justifyContent="space-between" alignItems="center" mb="22px">
-              <VuiTypography variant="lg" color="white">
-                Authors table
-              </VuiTypography>
-            </VuiBox>
-            <VuiBox
-              sx={{
-                "& th": {
-                  borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-                    `${borderWidth[1]} solid ${grey[700]}`,
-                },
-                "& .MuiTableRow-root:not(:last-child)": {
-                  "& td": {
-                    borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-                      `${borderWidth[1]} solid ${grey[700]}`,
-                  },
-                },
-              }}
-            >
-              <Table columns={columns} rows={rows} />
-            </VuiBox>
-          </Card>
-        </VuiBox>
-        <Card>
-          <VuiBox display="flex" justifyContent="space-between" alignItems="center">
-            <VuiTypography variant="lg" color="white">
-              Projects table
-            </VuiTypography>
-          </VuiBox>
-          <VuiBox
-            sx={{
-              "& th": {
-                borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-                  `${borderWidth[1]} solid ${grey[700]}`,
-              },
-              "& .MuiTableRow-root:not(:last-child)": {
-                "& td": {
-                  borderBottom: ({ borders: { borderWidth }, palette: { grey } }) =>
-                    `${borderWidth[1]} solid ${grey[700]}`,
-                },
-              },
-            }}
-          >
-            <Table columns={prCols} rows={prRows} />
-          </VuiBox>
-        </Card> */}
         <Grid container spacing="3px" height="100%" display="flex" justifyContent="space-between">
           <Grid item xs={12} lg={1.75}>
             <VuiBox bgColor="light" height="100%" width="100%" borderRadius="lg" p={3} >
@@ -138,14 +90,14 @@ function Webapp() {
                   flexDirection="column"
                   gap={3}
                   px="25%">
-                  <VuiButton variant="contained" color="info">
-                    <BsStickies size="15px" color="inherit" />
-                    <VuiTypography variant="lg" color="light" mx={1} >
+                  <VuiButton variant="contained" color="info" style={{width: "50%", height: "6%"}}>
+                    <BsStickies size="20px" color="inherit" />
+                    <VuiTypography variant="lg" color="light" mx={1}>
                       Upload New File...
                     </VuiTypography>
                   </VuiButton>
-                  <VuiButton variant="contained" color="info">
-                    <BsArrowRepeat size="15px" color="inherit" />
+                  <VuiButton variant="contained" color="info" style={{width: "50%", height: "6%"}}>
+                    <BsArrowRepeat size="20px" color="inherit" />
                     <VuiTypography variant="lg" color="light" mx={1}>
                       Resume Learning
                     </VuiTypography>
