@@ -43,11 +43,12 @@ import Dashboard from "layouts/dashboard";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import Webapp from "layouts/webapp";
 
 // Vision UI Dashboard React icons
 import { IoRocketSharp } from "react-icons/io5";
 import { IoIosDocument } from "react-icons/io";
-import { BsFillPersonFill } from "react-icons/bs";
+import { BsFillPersonFill, BsSticky } from "react-icons/bs";
 import { IoBuild } from "react-icons/io5";
 import { BsCreditCardFill } from "react-icons/bs";
 import { IoStatsChart } from "react-icons/io5";
@@ -91,6 +92,15 @@ const routes = [
   //   noCollapse: true,
   // },
   // { type: "title", title: "Account Pages", key: "account-pages" },
+  {
+    type: "collapse",
+    name: "Webapp",
+    key: "webapp",
+    route: "/webapp",
+    icon: <BsSticky size="15px" color="inherit" />,
+    component: Webapp,
+    noCollapse: true,
+  },
   {
     type: "collapse",
     name: "Profile",
