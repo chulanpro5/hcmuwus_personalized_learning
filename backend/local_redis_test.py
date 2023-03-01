@@ -72,7 +72,7 @@ create_index()
 test_input()
 # %%
 
-data = search("Can dog be human friend ?",1)
+data = search("Can huamn and dog live together ?",1)
 
 ids = [int(item.id) for item in data.docs]
 

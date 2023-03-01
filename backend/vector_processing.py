@@ -25,6 +25,8 @@ def get_metric_vector(context):
     
     return [flesch_reading_ease, flesch_kincaid_grade, gunning_fog, smog_index, automated_readability_index, coleman_liau_index, linsear_write_formula, dale_chall_readability_score, difficult_words, linsear_write_formula]
 
+
+
 #append vector to redis
 def append_vector_to_redis(context, vector):
     r = redis.Redis(host='localhost', port=6379, db=0)
