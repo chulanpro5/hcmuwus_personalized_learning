@@ -11,9 +11,11 @@ MAX_TOKENS = 2000
 TEMPERATURE = 0
 
 # load prompt from json file
-prompt_list = json.load("./prompt.json")
+prompt_list
 
-openai.api_key = os.environ.get('openai_api_key')
+def __init__():
+    prompt_list = json.load("./prompt.json")
+    openai.api_key = os.environ.get('openai_api_key')
 
 def interact_gpt(prompt, max_tokens: int = MAX_TOKENS):
     response = openai.Completion.create(
@@ -122,17 +124,17 @@ for each paragraph in the document:
 
 """
 
-f = open("doc.txt", "r", encoding="utf-8")
-text = f.read()
-f.close()
+# f = open("doc.txt", "r", encoding="utf-8")
+# text = f.read()
+# f.close()
 
-paragraphs = split_paragraph(text).split("\n\n")
+# paragraphs = split_paragraph(text).split("\n\n")
+# # print(paragraphs)
+
+# # for i in range(len(paragraphs)):
+# #     paragraphs[i] = paraphrase_paragraph(paragraphs[i])
+
 # print(paragraphs)
-
-# for i in range(len(paragraphs)):
-#     paragraphs[i] = paraphrase_paragraph(paragraphs[i])
-
-print(paragraphs)
 
 
 """ Redis query
