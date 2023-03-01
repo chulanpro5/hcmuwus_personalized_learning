@@ -136,7 +136,7 @@ export default function App() {
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={themeRTL}>
         <CssBaseline />
-        {layout === "" && (
+        {layout === "dashboard"  && (
           <>
             <Sidenav
               color={sidenavColor}
@@ -160,7 +160,7 @@ export default function App() {
   ) : (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {layout === "" && (
+      {layout === "dashboard" && (
         <>
           <Sidenav
             color={sidenavColor}
