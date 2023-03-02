@@ -163,7 +163,7 @@ class RedisDatabase():
         return results
 
     def query_topic(self,topic, threshold = 0.85):
-        result = self.search(topic, 1, index_name= INDEX_NAME, search_by_field= sentence_vector_field)
+        result = self.search(topic, k = 1, index_name= INDEX_NAME, search_by_field= sentence_vector_field)
         #get score from result
         score = 1 - abs(float(result.docs[0].vector_score))
         if(score >  threshold):

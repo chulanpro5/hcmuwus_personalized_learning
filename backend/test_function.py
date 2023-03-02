@@ -32,3 +32,4 @@ target_sentece = sentences[0]
 #%%
 print(modelInteraction.redisDatabase.query_paragraph_key_from_sentence(target_sentece))
 # %%
+
