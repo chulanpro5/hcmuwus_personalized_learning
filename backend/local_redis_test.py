@@ -1,13 +1,14 @@
 #%%
-
+import os
 import openai
 import numpy as np
 from redis import Redis
 from redis.commands.search.field import VectorField, TagField, NumericField
 from redis.commands.search.query import Query
+from dotenv import load_dotenv
+load_dotenv('./key.env.local')
 
-# Initialize OpenAI API with your API key
-openai.api_key = "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"
+openai.api_key = os.environ["OPENAI_API_KEY"]
 host = "127.0.0.1"
 port = 6379
 r = Redis(host = host, port = port)
