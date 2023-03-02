@@ -37,7 +37,7 @@ function Landing() {
   return (
     <DashboardLayout>
       {/* <Header /> */}
-      <VuiBox sx={{height:'100vh',
+      <VuiBox sx={{height:'100%',
               justifyContent:'center',
               alignItems:'center'}}>
         <Grid container sx={{ direction: 'row', width: '90vw', justifyContent: 'flex-end', margin:'0px', paddingTop:'30px'}}>
@@ -48,7 +48,6 @@ function Landing() {
           container
           padding={0}
           sx={{padding:'0px',
-              height:'90vh',
               justifyContent:'center',
               alignItems:'center'}}
           >
@@ -61,7 +60,7 @@ function Landing() {
             alignItems:'center'}}
             xs={6}
           >
-            <Grid sx={{marginLeft:40, padding:5}} item>
+            <Grid sx={{margin:"10%", padding:5}} item>
               <VuiTypography sx={{ marginBottom: 4 }} color={"black"} variant="h1" fontWeight="bold" >
               Personalized learning for everyone
               </VuiTypography>

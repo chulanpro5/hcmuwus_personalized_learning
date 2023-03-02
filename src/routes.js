@@ -54,6 +54,7 @@ import { IoBuild } from "react-icons/io5";
 import { BsCreditCardFill } from "react-icons/bs";
 import { IoStatsChart } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
+import Chatbot from "layouts/chatbot";
 
 const routes = [
   // {
@@ -127,6 +128,15 @@ const routes = [
     route: "/authentication/sign-up",
     icon: <IoRocketSharp size="15px" color="inherit" />,
     component: SignUp,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Chatbot",
+    key: "chatbot",
+    route: "/chatbot",
+    icon: <IoRocketSharp size="15px" color="inherit" />,
+    component: Chatbot,
     noCollapse: true,
   },
   {
