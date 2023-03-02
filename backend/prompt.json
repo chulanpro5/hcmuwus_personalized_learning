@@ -8,7 +8,7 @@
         "suffix": "\nResult:\n"
     },
     "rephrase_document" : {
-        "prefix": "rephrase the context to make it easier to understand. The rephrased context should be written in simple and concise language that is suitable for a general audience, return the answer using this format [\"pharagraph 1\",\"pharagraph 2\",\"pharagraph 3\"]. Do not use any line break between each chunk.\nContext:\n",
+        "prefix": "rephrase the context to make it easier to understand. The rephrased context should be written in simple and concise language that is suitable for a general audience, return the answer using this format [\"pharagraph 1\",\"pharagraph 2\",\"pharagraph 3\"]. Do not use any line break between each pharagraph.\nContext:\n",
         "suffix": "\nResult:\n"
     },
     "summarize" : {
