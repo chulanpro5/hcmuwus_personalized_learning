@@ -228,3 +228,10 @@ class RedisDatabase():
         # metadata is the key of paragraph
         return None
     
+    def query_paragraph_from_sentence(self, sentence : str):
+        key = self.query_paragraph_key_from_sentence(sentence)
+        
+        paragraph = self.r.hget(key, 'metadata')
+
+        return paragraph
+    
