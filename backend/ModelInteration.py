@@ -90,12 +90,12 @@ class ModelInteraction():
             if(self.redisDatabase.query_topic(topic) == None):
                 continue
             print(topic)
-            prompt += '- no modification of information related to ' + topic + '\n'
+            prompt += '- keep the information related to ' + topic + '\n'
 
 
         prompt += '- keep the structure of the context\n'
 
-        prompt += '- summary unrelated content using words in the context\n\n'
+        prompt += '- summary unrelated content using words in the context \n\n'
 
         prompt += 'context\n'
 
