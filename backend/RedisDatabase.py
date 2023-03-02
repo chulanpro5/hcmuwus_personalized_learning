@@ -28,15 +28,24 @@ documents = [
     "The quick brown fox ate the lazy dog."]
 
 class RedisDatabase():
-
     # Initialize OpenAI API with your API key
-
     def __init__(self, host = host, port = port, password = password):
         self.host = host
         self.port = port
         self.password = password
+        self.dict = {}
         openai.api_key = "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"
         self.r = Redis(host = host, port = port, password = password)
+
+    def get_idx(self, user_name : str):
+        if(self.dict.get(user_name) is None):
+            idx = len(dict)
+            dict[user_name] = idx
+
+        return dict[user_name]
+
+    def select(self, idx : int):
+        self.r.select(idx)
 
     def connect_host(self, host, port, password):
         self.r = Redis(host = host, port = port, password = password)
@@ -219,4 +228,3 @@ class RedisDatabase():
         # metadata is the key of paragraph
         return None
     
-
