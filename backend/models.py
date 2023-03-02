@@ -147,16 +147,20 @@ def user_click_sentence(data: list, sentence: str) -> str:
         for s in paragraph:
             if(s == sentence):
                 new_paragraph = ""
+                topics = extract_topic(s)
                 # check if the sentence is in redis database
                 query = RedisDatabase.query_sentence(s)
                 if(query == None):
-                    new_paragraph =  expand_topics_from_GPT(extract_topic(s), paragraph)
+                    new_paragraph =  expand_topics_from_GPT(topics, paragraph)
                 else:
-                    new_paragraph =  expand_topics_from_clue(extract_topic(s), query, s)
+                    new_paragraph =  expand_topics_from_clue(topics, query, s)
 
                 new_paragraph = paragraph_to_sentence(new_paragraph)
                 # update the paragraph
                 paragraph = new_paragraph
+                # insert each topic to redis database
+                for topic in topics:
+                    RedisDatabase.insert_topic(topic, paragraph)
     
     return data
 
