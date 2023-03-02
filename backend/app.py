@@ -16,14 +16,14 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-# @app.route('/api/predict', methods=['POST'])
-# def predict():
-#     query = request.json.get("query")
-#     query_with_contexts = retrieve_from_gpt(query)
-#     print(query_with_contexts)
-#     bot = complete(query_with_contexts)
+@app.route('/api/predict', methods=['POST'])
+def predict():
+    query = request.json.get("query")
+    query_with_contexts = retrieve_from_gpt(query)
+    print(query_with_contexts)
+    bot = complete(query_with_contexts)
 
-#     return {"bot": bot}
+    return {"bot": bot}
     
 if __name__ == '__main__':
     app.run(debug=True)

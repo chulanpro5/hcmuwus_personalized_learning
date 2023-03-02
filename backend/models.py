@@ -114,7 +114,7 @@ class DocumentInteraction():
         self.document = ""
 
         self.model = ModelInteraction()
-        # self.redis = RedisDatabase()
+        self.redis = RedisDatabase()
 
     def insert_document(self, document: str) -> None:
         self.document = document
@@ -154,7 +154,7 @@ class DocumentInteraction():
                     new_paragraph = ""
                     topics = self.model.extract_topic(s)
                     # check if the sentence is in redis database
-                    query = self.redis.query_sentence(s)
+                    query = self.redis.query_paragraph_from_sentence(s)
                     query = None
                     if(query == None):
                         new_paragraph =  self.model.expand_topics_from_GPT(topics, paragraph)
@@ -165,8 +165,8 @@ class DocumentInteraction():
                     # update the paragraph
                     paragraph = new_paragraph
                     # insert each topic to redis database
-                    # for topic in topics:
-                    #     self.redis.insert_topic(topic, paragraph)
+                    for topic in topics:
+                        self.redis.insert_topic(topic, paragraph)
         
         return 
 
@@ -177,9 +177,9 @@ class DocumentInteraction():
         """
         topics = self.model.extract_topic(paragraph)
         
-        # for topic in topics:
-        #     if(self.redis.query_topic(topic) == None):
-        #         topics.remove(topic)
+        for topic in topics:
+            if(self.redis.query_topic(topic) == None):
+                topics.remove(topic)
 
         if(len(topics) == 0):
             return self.model.summarize_paragraph(paragraph)
