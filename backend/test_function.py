@@ -11,12 +11,12 @@ paragraphs = {
 
 modelInteraction = ModelInteraction()
 
-modelInteraction.connect_database(host, port)
+r = modelInteraction.connect_database(host, port)
+
 
 modelInteraction.redisDatabase.delete_data()
 
 modelInteraction.redisDatabase.create_index()
-# %%
 
 #%%
 
@@ -43,4 +43,19 @@ text = 'Captain Marvel, as well as popular superhero teams such as the Avengers,
 
 # %%
 modelInteraction.generate_context_from_raw(text)
+# %%
+print(modelInteraction.redisDatabase.debug_get_paragraph_key(paragraph=paragraphs['par2']))
+# %%
+modelInteraction.redisDatabase.get_paragraph_key(paragraph=paragraphs['par2'])
+# %%
+r.hset('hello', mapping={
+    'user_id' : 'John'
+})
+# %%
+
+# %%
+dict = {}
+dict[1] = 2
+dict[3] = 4
+print(len(dict))
 # %%
