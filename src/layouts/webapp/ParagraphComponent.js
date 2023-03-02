@@ -8,13 +8,12 @@ import { PopupComments } from "./PopupComments";
 export const ParagraphComponent = (props) => {
     const [pColor, setPColor] = useState('#8dadf7');
 
-
     return (
-        <PopupComments triggerButton={(<ListItem p={3}
+        <VuiBox
             height="auto"
             bgColor="light"
             borderRadius={10}
-            variant="button"
+            // onClick={() => console.log("Clicked")}
             sx={{
                 '&:hover': {
                     backgroundColor: pColor,
@@ -25,27 +24,28 @@ export const ParagraphComponent = (props) => {
                 marginRight: 3,
                 padding: 1
             }}
-            onMouseOver={(event) => {
-                setPColor('#8dadf7');
-                event.stopPropagation();
-            }}
+            // onMouseOver={(event) => {
+            //     setPColor('#8dadf7');
+            //     event.stopPropagation();
+            // }}
         >   <VuiTypography >
                 {
-                    props.paragraph.map(sentence => (
-                        <PopupComments triggerButton={(<VuiTypography display="inline" onMouseOver={(event) => {
-                            event.stopPropagation();
+                    props.paragraph.map((sentence, index) => (
+                        <PopupComments text={sentence} index={index} triggerButton={(<VuiTypography display="inline" onMouseOver={(event) => {
+                            //event.stopPropagation();
                             setPColor('light');
-                        }} onClick={(event) => { event.stopPropagation(); }}
+                        }} 
                             sx={{
                                 '&:hover': {
                                     backgroundColor: '#8dadf7',
                                     borderRadius: 5
                                 }
-                            }}>
+                            }}
+                            >
                             {sentence + ". "}
                         </VuiTypography>)} />))
                 }
             </VuiTypography>
-        </ListItem>)} />
+        </VuiBox>
     )
 }
