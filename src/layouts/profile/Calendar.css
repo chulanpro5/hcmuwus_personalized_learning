@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Merriweather:ital@0;1&family=Work+Sans:wght@400;500;800&display=swap');
 .react-calendar { 
     width: 480px;
     height: 350px;
@@ -9,8 +10,9 @@
     background-color: #fff;
     color: #222;
     border-radius: 10px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
     line-height: 1.125em;
+    font-weight: bold;
    }
    .react-calendar__navigation button {
     color: #6f48eb;

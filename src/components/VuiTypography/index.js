@@ -61,7 +61,7 @@ const VuiTypography = forwardRef(
 VuiTypography.defaultProps = {
   color: "dark",
   fontWeight: false,
-  fontSize: "16px",
+  fontSize: "40px",
   textTransform: "none",
   verticalAlign: "unset",
   textGradient: false,
