@@ -12,8 +12,7 @@ import 'react-calendar/dist/Calendar.css';
 import "./Calendar.css";
 import ChartStore from "stores/ChartStore";
 import { observer } from "mobx-react-lite";
-
-
+import store from 'stores/userInfo';
 
 function Overview() {
   const store = new ChartStore();

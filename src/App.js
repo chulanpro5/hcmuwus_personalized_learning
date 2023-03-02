@@ -47,6 +47,7 @@ import routes from "routes";
 
 // Vision UI Dashboard React contexts
 import { useVisionUIController, setMiniSidenav, setOpenConfigurator } from "context";
+//import UserStore from "stores/userInfo";
 
 export default function App() {
   const [controller, dispatch] = useVisionUIController();
@@ -54,7 +55,7 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-
+  //const userInfo = new UserStore();
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
@@ -102,7 +103,11 @@ export default function App() {
       }
 
       if (route.route) {
-        return <Route exact path={route.route} component={route.component} key={route.key} />;
+        console.log("route.component");
+        return <Route exact path={route.route} 
+        render={(props) => <route.component {...props}/>}
+        //component={() => (<route.component store={userInfo} />)}
+        authed={true} key={route.key} />;
       }
 
       return null;
