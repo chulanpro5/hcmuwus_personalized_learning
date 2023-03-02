@@ -1,7 +1,9 @@
 import { Grid, List } from "@mui/material";
 import { ParagraphComponent } from "./ParagraphComponent";
+import { observable } from "mobx";
+import { observer } from "mobx-react";
 
-export const DocumentGenerator = (props) => {
+export const DocumentGenerator = observer((props) => {
     return (
         <Grid sx={{ overflowY: "scroll", overflowX: "hidden", height: "100%" }} >
             <List>
@@ -11,4 +13,4 @@ export const DocumentGenerator = (props) => {
             </List>
         </Grid>
     );
-}
+})

@@ -41,14 +41,15 @@ import store from "stores/ContentStore";
 import NotesStore from "stores/NotesStore";
 
 import { Configuration, OpenAIApi } from "openai";
+import ContentStore from "stores/ContentStore";
 
-const testData = [`MobX is an open source state management tool. When creating a web application, developers often seek an effective way of managing state within their applications. One solution is to use a unidirectional data flow pattern named Flux, introduced by the React team, and later implemented in a package called React-Redux, which made the use of the Flux pattern even easier.`,
+const testData = [[`MobX is an open source state management tool. When creating a web application, developers often seek an effective way of managing state within their applications. One solution is to use a unidirectional data flow pattern named Flux, introduced by the React team, and later implemented in a package called React-Redux, which made the use of the Flux pattern even easier.`,
   `MobX, a simple, scalable, and standalone state management library, follows functional reactive programming (FRP) implementation and prevents inconsistent state by ensuring that all derivations are performed automatically. According to the MobX getting started page, “MobX makes state management simple again by addressing the root issue: it makes it impossible to produce an inconsistent state.”`,
   `MobX is standalone and does not depend on any frontend library or framework to work. There are implementations of the MobX in popular front-end frameworks like React, Vue, and Angular.`,
   `In this tutorial, we will discuss how to use MobX with React, but first, we will begin by getting to understand MobX a little better.`,
   `In addition to being a library, MobX also introduces a few concepts: state, actions, and derivations (including reactions and computed values).`,
   `Application state refers to the entire model of an application, and can contain different data types including array, numbers, and objects. In MobX, actions are methods that manipulate and update the state. These methods can be bound to a JavaScript event handler to ensure a UI event triggers them.`,
-  `Anything (not just a value) that is derived from the application state without further interaction is referred to as a derivation. Derivations will listen to any particular state and then perform some computation to produce a distinct value from that state. A derivation can return any data type, including objects. In MobX, the two types of derivations are reactions and computed values.`]
+  `Anything (not just a value) that is derived from the application state without further interaction is referred to as a derivation. Derivations will listen to any particular state and then perform some computation to produce a distinct value from that state. A derivation can return any data type, including objects. In MobX, the two types of derivations are reactions and computed values.`]]
 const testDataAPI = '[["AI is used to show intelligence in activities such as speech recognition, computer vision, and language translation","2nd sentence", "3rd sentence"], ["Examples of AI applications include web search engines (Google Search), recommendation systems (YouTube, Amazon, Netflix), understanding human speech (Siri, Alexa), self-driving cars (Waymo), generative or creative tools (ChatGPT, AI art), automated decision-making and strategic game systems (chess, Go)"], ["AI is used in a wide range of topics and activities"]]'
   function Webapp()
 {
@@ -82,7 +83,7 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
     reader.readAsText(file);
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     axios({
       method: 'post',
       url: "http://localhost:4000/api/wiki_retrieve/",
@@ -91,9 +92,12 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
         apiKey: key
       }
     })
-    .then(res => useContent(JSON.parse(res.data.payload)))
+    .then(res => {
+      useContent(JSON.parse(res.data.payload)) 
+      ContentStore.fetchData(JSON.parse(res.data.payload))})
     .catch(err => console.log(err))
-    //useContent(JSON.parse(testDataAPI))
+    
+    
     setOpenai(new OpenAIApi(new Configuration({ apiKey: key })))
   }
 
@@ -142,7 +146,7 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
                     <VuiTypography opacity={0.5}>
                       {url + `: ` + content[0].slice(0, 200) + `...`}
                     </VuiTypography>
-                    <DocumentGenerator document={content} />
+                    <DocumentGenerator document={ContentStore.getContent()} />
                     <VuiBox display="flex" gap={3} justifyContent="flex-end" m={3}>
                       <VuiButton color="info" onClick={() =>
                       {
@@ -189,7 +193,10 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
                   </VuiButton>
                   </form>
                   <VuiButton variant="contained" color="info" style={{ width: "50%", height: "6%" }}
-                    onClick={() => useContent(testData)}>
+                    onClick={() => {
+                      useContent(testData)
+                      ContentStore.fetchData(testData)
+                    }}>
                     <BsPencil size="20px" color="inherit" />
                     <VuiTypography variant="lg" color="light" mx={1}>
                       Testing

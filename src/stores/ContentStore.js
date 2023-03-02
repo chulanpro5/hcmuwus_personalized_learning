@@ -1,6 +1,6 @@
 import {
     makeObservable, action
-    , observable, computed, runInAction, autorun
+    , observable, computed, runInAction, autorun, makeAutoObservable
 } from "mobx";
 
 const data = [`MobX is an open source state management tool. When creating a web application, developers often seek an effective way of managing state within their applications. One solution is to use a unidirectional data flow pattern named Flux, introduced by the React team, and later implemented in a package called React-Redux, which made the use of the Flux pattern even easier.`,
@@ -14,36 +14,36 @@ class ContentStore {
     content = [];
 
     constructor() {
-        makeObservable(this, {
-            content: observable,
-            getContent: computed,
-            updateContent: action,
-            removeContent: action,
-        })
-
-        runInAction(this.fetchData);
+        makeAutoObservable(this);
+        // makeObservable(this, {
+        //     content: observable,
+        //     getContent: computed,
+        //     updateContent: action,
+        //     removeContent: action,
+        //     fetchData: action
+        // })
     }
 
-    get getContent() {
-        return [...content];
+    getContent() {
+        return this.content;
     }
 
-    updateContent(content) {
-        newContent = []
-        content.map(item => newContent.push(item))
-        content = newContent;
+    updateContent(content, index) {
+        this.content[index] = content;
     }
 
     removeContent(_content) {
         this.content = this.content.filter(item => !_content.includes(item));
     }
 
-    fetchData() {
-        setTimeout(() => {
-            this.updateContent(data);
-            console.log('fetching content completed');
-        }, 3000);
-
+    fetchData(content) {
+        // setTimeout(() => {
+        //     this.updateContent(data);
+        //     console.log('fetching content completed');
+        // }, 3000);
+        this.content = content;
     }
 }
-export default ContentStore;
+
+const store = new ContentStore()
+export default store;

@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const CircularJSON = require('circular-json')
 const app = express();
 const PORT = 4000;
 
@@ -15,8 +16,8 @@ app.get("/api", (req, res) => {
 
 app.post("/api/wiki_retrieve/", (req, res) => {
     fetch("https://c059-113-22-113-75.ap.ngrok.io/api/wiki_retrieve/", {
-        method: 'POST',
-        body: JSON.stringify(req.body),
+        method: 'POST', 
+        body: CircularJSON.stringify(req.body),
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
         },
@@ -28,7 +29,7 @@ app.post("/api/wiki_retrieve/", (req, res) => {
 app.post("/api/user_interact/", (req, res) => {
     fetch("https://c059-113-22-113-75.ap.ngrok.io/api/user_interact/", {
         method: 'POST',
-        body: JSON.stringify(req.body),
+        body: CircularJSON.stringify(req.body),
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
         },

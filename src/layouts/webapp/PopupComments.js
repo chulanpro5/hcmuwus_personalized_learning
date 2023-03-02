@@ -7,13 +7,33 @@ import { List } from '@mui/material';
 import { ListItem } from '@mui/material';
 import VuiTypography from 'components/VuiTypography';
 import { IoIosSend } from 'react-icons/io';
-export const PopupComments = (props) => {
-    const colors = ["#E6F2F7", "#007EAE"];
-    const [commands, setCommands] = useState(["Explan more about this", "Summarize this paragraph"]);
-    const [feedback, setFeedback] = useState('');
+import axios from 'axios';
+import ContentStore from "stores/ContentStore";
 
-    const handleFeedback = (e) => {
+export const PopupComments = (props) =>
+{
+    const colors = ["#E6F2F7", "#007EAE"];
+    //const [commands, setCommands] = useState(["Explain more about this", "Show me the references"]);
+    const [feedback, setFeedback] = useState(false);
+
+    function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
+
+    const handleFeedback = (command) =>
+    {
+        if (command!=="Explain more about this" && command!=="Show me the references") return;
         
+        axios({
+            method: 'post',
+            url: "http://localhost:4000/api/user_interact/",
+            data: {
+                sentence: props.text,
+                prompt: command
+            }
+        })
+            .then(res => ContentStore.updateContent(JSON.parse(res.data.payload), props.index))
+            .catch(err => console.log(err))
     }
     return (
         <Popup
@@ -22,7 +42,7 @@ export const PopupComments = (props) => {
             nested
         >
             {close => (
-                <VuiBox py={3} height={330} marginBottom={5} bgColor="#66C4E8" sx={{ zIndex: 8 }} paddingTop={1} width={500} borderRadius={20}>
+                <VuiBox py={3} marginBottom={5} bgColor="#66C4E8" sx={{ zIndex: 8 }} paddingTop={1} width={500} borderRadius={20}>
                     <VuiBox variant="button" onClick={() => close()} bgColor="#E6F2F7" sx={{
                         color: "black", '&:hover': {
                             backgroundColor: 'red',
@@ -37,12 +57,21 @@ export const PopupComments = (props) => {
                     }} borderRadius={15} end width="30%">
                         <VuiTypography padding={1} variant="lg">Close</VuiTypography>
                     </VuiBox>
-                    <Grid sx={{ overflowX: "hidden", height: "61%", margin: 1, padding: 1 }} >
-                        <List>
+                    <VuiTypography variant="xs" mx={2}>
+                        {props.text.slice(0, 40) + "..."}
+                    </VuiTypography>
+                    <VuiBox sx={{ overflowX: "hidden", margin: 1, padding: 1 }} display="flex" flexDirection="column" gap={2}>
+                        <VuiButton color="info" width="100%" onClick={() => handleFeedback("Explain more about this")}>
+                            Explain more about this
+                        </VuiButton>
+                        <VuiButton color="info" width="100%" onClick={() => handleFeedback("Show me the references")}>
+                            Show me the references
+                        </VuiButton>
+                        {/* <List>
                             {commands.map((command, index) => (<ListItem p={3}
                                 height="auto"
                                 variant="button"
-                                onClick={() => console.log("Clicked")}
+                                onClick={handleFeedback(command)}
                                 sx={{
                                     '&:hover': {
                                         backgroundColor: 'lightgreen',
@@ -67,9 +96,9 @@ export const PopupComments = (props) => {
                                     {command}
                                 </VuiTypography>
                             </ListItem>))}
-                        </List>
-                    </Grid>
-                    <VuiBox margin={2} mt={5} height="35%" >
+                        </List> */}
+                    </VuiBox>
+                    {/* <VuiBox margin={2} mt={5} height="35%" >
                         <TextField borderRadius={20} sx={{ width: "80%", borderRadius: 30 , marginBottom: 5}} fullWidth={true} onChange={(e) => setFeedback(e.target.value)}></TextField>
                         <VuiButton sx={{
                             borderRadius: 20, marginLeft: 0.5, width: "19%", height: 20, backgroundColor: "white"
@@ -78,7 +107,7 @@ export const PopupComments = (props) => {
                         >
                             <VuiTypography variant="lg">Send</VuiTypography>
                         </VuiButton>
-                    </VuiBox>
+                    </VuiBox> */}
                 </VuiBox>
             )}
         </Popup>
