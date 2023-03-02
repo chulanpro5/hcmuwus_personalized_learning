@@ -55,17 +55,27 @@ import { BsCreditCardFill } from "react-icons/bs";
 import { IoStatsChart } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
 import Chatbot from "layouts/chatbot";
+import Notes from "layouts/notes";
 
 const routes = [
-  // {
-  //   type: "collapse",
-  //   name: "Dashboard",
-  //   key: "dashboard",
-  //   route: "/dashboard",
-  //   icon: <IoHome size="15px" color="inherit" />,
-  //   component: Dashboard,
-  //   noCollapse: true,
-  // },
+  {
+    type: "collapse",
+    name: "Dashboard",
+    key: "dashboard",
+    route: "/dashboard",
+    icon: <IoHome size="15px" color="inherit" />,
+    component: Dashboard,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Notes",
+    key: "notes",
+    route: "/notes",
+    icon: <IoHome size="15px" color="inherit" />,
+    component: Notes,
+    noCollapse: true,
+  },
   // {
   //   type: "collapse",
   //   name: "Tables",

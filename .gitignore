@@ -2,12 +2,15 @@
 
 # dependencies
 /node_modules
+/server/node_modules
 
 # testing
 /coverage
+/server/coverage
 
 # production
 /build
+/server/build
 
 # misc
 .DS_Store
@@ -22,5 +25,20 @@ yarn-error.log*
 
 package-lock.json
 yarn.lock
+
+commit.sh
+
+/server/.DS_Store
+/server/.env.local
+/server/.env.development.local
+/server/.env.test.local
+/server/.env.production.local
+
+/server/npm-debug.log*
+/server/yarn-debug.log*
+/server/yarn-error.log*
+
+/server/package-lock.json
+/server/yarn.lock
 
 commit.sh

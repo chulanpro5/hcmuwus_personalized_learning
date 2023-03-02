@@ -7,7 +7,7 @@ class ContentStore {
     content = [];
 
     constructor() {
-
+        
     }
 
     get getContent() {
@@ -27,4 +27,4 @@ class ContentStore {
 
     }
 }
-export default store;
+export default ContentStore;
