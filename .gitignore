@@ -28,6 +28,10 @@ yarn.lock
 
 commit.sh
 
+
+# python
+*.pyc
+
 /server/.DS_Store
 /server/.env.local
 /server/.env.development.local
@@ -42,3 +46,4 @@ commit.sh
 /server/yarn.lock
 
 commit.sh
+
