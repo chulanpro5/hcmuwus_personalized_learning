@@ -1,8 +1,9 @@
+#%%
 import os
 import openai
 import json
 from dotenv import load_dotenv
-from redis_test import *
+from RedisDatabase import *
 load_dotenv('./key.env')
 
 OPENAI_EMBEDDINGS_ENGINE = "text-embedding-ada-002"
@@ -11,11 +12,12 @@ MAX_TOKENS = 2000
 TEMPERATURE = 0
 
 # load prompt from json file
-prompt_list
-
-def __init__():
-    prompt_list = json.load("./prompt.json")
-    openai.api_key = os.environ.get('openai_api_key')
+#%%
+redisDatabase = RedisDatabase()
+#%%
+prompt_list =  json.load(open('prompt.json', 'r'))
+openai.api_key = os.environ.get('openai_api_key')
+#%%
 
 def interact_gpt(prompt, max_tokens: int = MAX_TOKENS):
     response = openai.Completion.create(
@@ -29,7 +31,11 @@ def interact_gpt(prompt, max_tokens: int = MAX_TOKENS):
     return response    
 
 def split_paragraph(paragraph: str, max_tokens: int = MAX_TOKENS):
-    prompt = "Chunk the context to 3 - 5 paragraphs. Show exactly the paragraphs without modification, return the answer using this format {'chunk a','chunk b','chunk c'}\n" + str + "Result:\n"
+    prompt = "Chunk the context to 3 - 5 paragraphs. Show exactly the paragraphs without modification, return the answer using this format {'chunk a','chunk b','chunk c'}\n"
+    prompt += "context:\n"
+    prompt += paragraph + "\n"
+
+    prompt+= "Result:\n"
     response = interact_gpt(prompt, max_tokens)
     return response.choices[0].text.strip()
 
@@ -67,13 +73,13 @@ def paraphrase_paragraph(extracted-topic):
 
 def generate_context_from_raw(target_paragraph : str):
     
-    related_information = search(target_paragraph, k = 1, search_by_field=sentence_vector_field)
+    related_information = RedisDatabase.search(target_paragraph, k = 1, search_by_field=sentence_vector_field)
     prompt = "Rewrite the following context \n"
     
     topics = extract_topic(target_paragraph)
 
     for topic in topics:
-        if(query_topic(topic) == None):
+        if(RedisDatabase.query_topic(topic) == None):
             continue
         prompt += '- keep information related to' + topic + '\n'
 
@@ -86,7 +92,7 @@ def generate_context_from_raw(target_paragraph : str):
 
     paragraph_keys = [info.metadata for info in related_information.docs]
 
-    paragraphs = [search(key, search_by_field=paragraph_vector_field).docs[0].metadata for key in paragraph_keys]
+    paragraphs = [RedisDatabase.search(key, search_by_field=paragraph_vector_field).docs[0].metadata for key in paragraph_keys]
 
     context = ""
 
