@@ -30,9 +30,17 @@ print(modelInteraction.redisDatabase.debug_get_paragraph_key(paragraph=paragraph
 # %%
 target_sentece = sentences[0]
 #%%
-print(modelInteraction.redisDatabase.query_paragraph_key_from_sentence(target_sentece))
+#print(modelInteraction.redisDatabase.query_paragraph_key_from_sentence(target_sentece))
 # %%
 #modelInteraction.redisDatabase.insert_topic('nice nice')
 # %%
-print(modelInteraction.redisDatabase.debug_query_topic('nice nice'))
+# print(modelInteraction.redisDatabase.insert_topic('segment tree'))
+# # %%
+# print(modelInteraction.redisDatabase.debug_query_topic('computer science'))
+# %%
+text = 'Captain Marvel, as well as popular superhero teams such as the Avengers, X-Men, Fantastic Four, and Guardians of the Galaxy.'
+
+
+# %%
+modelInteraction.generate_context_from_raw(text)[0]
 # %%

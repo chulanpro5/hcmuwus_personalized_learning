@@ -162,11 +162,13 @@ class RedisDatabase():
         results = self.r.ft(index_name = index_name).search(query, query_params = params_dict)
         return results
 
-    def query_topic(self,topic, threshold = 0.80):
+    def query_topic(self,topic, threshold = 0.9):
         result = self.search(topic, k = 1, index_name= INDEX_NAME, search_by_field= topic_vector_field)
         #get score from result
+        if(len(result.docs) == 0):
+            return None
+        
         score = 1 - abs(float(result.docs[0].vector_score))
-        print(score)
         if(score >  threshold):
             return result.docs[0].metadata
         
