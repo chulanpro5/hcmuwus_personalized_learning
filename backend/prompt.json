@@ -7,8 +7,12 @@
         "prefix": "Chunk the context to multiple paragraphs. Show exactly the paragraphs without modification, return the answer using this format [\"chunk a\",\"chunk b\",\"chunk c\"]. Do not use any line break between each chunk.\nContext:\n",
         "suffix": "\nResult:\n"
     },
+    "rephrase_document" : {
+        "prefix": "rephrase the context to make it easier to understand. The rephrased context should be written in simple and concise language that is suitable for a general audience, return the answer using this format [\"pharagraph 1\",\"pharagraph 2\",\"pharagraph 3\"]. Do not use any line break between each chunk.\nContext:\n",
+        "suffix": "\nResult:\n"
+    },
     "summarize" : {
-        "prefix": "brief explanation the following context that is brief and easier to understand. The explanation should be written in simple and concise language that is suitable for a general audience, return the explanation using this format [\"answer\"]",
+        "prefix": "brief explanation the following context that is brief and easier to understand. The explanation should be written in simple and concise language that is suitable for a general audience",
         "suffix": "\nExplanation:\n"
     }
 }

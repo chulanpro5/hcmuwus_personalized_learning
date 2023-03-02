@@ -1,4 +1,6 @@
 #%%
+import complete_prompt
+
 import os
 import openai
 import json
@@ -19,7 +21,7 @@ prompt_list =  json.load(open('prompt.json', 'r'))
 openai.api_key = os.environ.get('openai_api_key')
 #%%
 
-def interact_gpt(prompt, max_tokens: int = MAX_TOKENS):
+def complete(prompt, max_tokens: int = MAX_TOKENS) -> str:
     response = openai.Completion.create(
         engine = OPENAI_COMPLETIONS_ENGINE,
         prompt = prompt,
@@ -28,28 +30,61 @@ def interact_gpt(prompt, max_tokens: int = MAX_TOKENS):
         stop = None,
         temperature = TEMPERATURE,
     )
-    return response    
-
-def split_paragraph(paragraph: str, max_tokens: int = MAX_TOKENS):
-    prompt = "Chunk the context to 3 - 5 paragraphs. Show exactly the paragraphs without modification, return the answer using this format {'chunk a','chunk b','chunk c'}\n"
-    prompt += "context:\n"
-    prompt += paragraph + "\n"
-
-    prompt+= "Result:\n"
-    response = interact_gpt(prompt, max_tokens)
     return response.choices[0].text.strip()
 
-# def paraphrase_paragraph(paragraph: str, max_tokens: int = MAX_TOKENS) -> str:
-#     prompt = "paraphrase the following paragraph by these requirement :\n\n" + paragraph + "\n\n1."
-#     response = openai.Completion.create(
-#         engine="text-davinci-003",
-#         prompt=prompt,
-#         max_tokens=max_tokens,
-#         n=1,
-#         stop=None,
-#         temperature=TEMPERATURE,
-#     )
-#     return response.choices[0].text.strip()
+def split_document(paragraph: str) -> list:
+    # print("slit document")
+    prompt = prompt_list["split_document"]["prefix"] + paragraph + prompt_list["split_document"]["suffix"]
+    response = json.loads(complete(prompt).replace('\n','')) # remove newline character
+
+    return response
+
+def extract_topic(paragraph: str) -> list:
+    # print("extract topic")
+    prompt = prompt_list["extract_topic"]["prefix"] + paragraph + prompt_list["extract_topic"]["suffix"]
+    response = json.loads(complete(prompt))
+
+    return response
+
+def summarize_paragraph(paragraph: str) -> str:
+    # print("summarize paragraph")
+    prompt = prompt_list["summarize"]["prefix"] + paragraph + prompt_list["summarize"]["suffix"]
+    response = complete(prompt)
+    return response
+
+def conditonal_summarize_paragraph(topics: list, paragraph: str) -> str:
+    prompt = complete_prompt.prompt_conditional_summary(topics, paragraph)
+    response = complete(prompt)
+    return response
+
+def expand_topics_from_clue(topics: list, paragraph: str, clue: str) -> str:
+    prompt = complete_prompt.expand_topics_from_clue(topics, paragraph, clue)
+    response = complete(prompt)
+    return response
+
+def expand_topics_from_GPT(topics: list, paragraph: str) -> str:
+    prompt = complete_prompt.expand_topics_from_GPT(topics, paragraph)
+    response = complete(prompt)
+    return response
+
+def rephase_document(paragraph: str) -> list:
+    prompt = prompt_list["rephrase_document"]["prefix"] + paragraph + prompt_list["rephrase_document"]["suffix"]
+    response = json.loads(complete(prompt).replace('\n','')) # remove newline character
+
+    return response
+
+def processing_document(document: str) -> str:
+    # print("processing document")
+    paragraphs = split_document(document)
+    result = ""
+    for paragraph in paragraphs:
+        result += processing_paragraph(paragraph) + ' '
+    
+    merge_paragraphs = rephase_document(result)
+
+
+def processing_paragraph(paragraph: str) -> str:
+    
 
 
 """ Prompt
@@ -88,56 +123,46 @@ def processing_paragraph():
 """
 
 
-def generate_context_from_raw(target_paragraph : str):
+# def generate_context_from_raw(target_paragraph : str):
     
-    related_information = RedisDatabase.search(target_paragraph, k = 1, search_by_field=sentence_vector_field)
-    prompt = "Rewrite the following context \n"
+#     related_information = RedisDatabase.search(target_paragraph, k = 1, search_by_field=sentence_vector_field)
+#     prompt = "Rewrite the following context \n"
     
-    topics = extract_topic(target_paragraph)
+#     topics = extract_topic(target_paragraph)
 
-    for topic in topics:
-        if(RedisDatabase.query_topic(topic) == None):
-            continue
-        prompt += '- keep information related to' + topic + '\n'
+#     for topic in topics:
+#         if(RedisDatabase.query_topic(topic) == None):
+#             continue
+#         prompt += '- keep information related to' + topic + '\n'
 
-    prompt += '- keep the structure of the context\n'
+#     prompt += '- keep the structure of the context\n'
 
-    prompt += '- summary unrelated content using words in the context\n\n'
+#     prompt += '- summary unrelated content using words in the context\n\n'
 
-    prompt += 'context\n'
-
-
-    paragraph_keys = [info.metadata for info in related_information.docs]
-
-    paragraphs = [RedisDatabase.search(key, search_by_field=paragraph_vector_field).docs[0].metadata for key in paragraph_keys]
-
-    context = ""
-
-    for paragraph in paragraphs:
-        context += paragraph + '\n'
-
-    prompt += context
-
-    prompt += "Result:"
-
-    response = interact_gpt(prompt, max_tokens = MAX_TOKENS)
-
-    return response.choices[0].text.strip()
+#     prompt += 'context\n'
 
 
+#     paragraph_keys = [info.metadata for info in related_information.docs]
+
+#     paragraphs = [RedisDatabase.search(key, search_by_field=paragraph_vector_field).docs[0].metadata for key in paragraph_keys]
+
+#     context = ""
+
+#     for paragraph in paragraphs:
+#         context += paragraph + '\n'
+
+#     prompt += context
+
+#     prompt += "Result:"
+
+#     response = interact_gpt(prompt, max_tokens = MAX_TOKENS)
+
+#     return response.choices[0].text.strip()
 
 
-def extract_topic(paragraph: str, max_tokens: int = MAX_TOKENS) -> list:
-    prompt = prompt_list["extract_topic"]["prefix"] + paragraph + prompt_list["extract_topic"]["suffix"]
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
-        max_tokens=max_tokens,
-        n=1,
-        stop=None,
-        temperature=TEMPERATURE,
-    )
-    return response.choices[0].text.strip()
+
+
+
 
 """
     - Split the document into paragraphs: split_paragraph()
