@@ -4,7 +4,7 @@
         "suffix": "\nResult:\n"
     },
     "split_document" : {
-        "prefix": "Chunk the context to multiple paragraphs. Show exactly the paragraphs without modification, return the answer using this format [\"chunk a\",\"chunk b\",\"chunk c\"]. Do not use any line break between each chunk.\nContext:\n",
+        "prefix": "Chunk the context to multiple paragraphs. Show exactly the paragraphs without modification, return the answer using this format [\"paragraphs a\",\"paragraphs b\",\"paragraphs c\"]. Do not use any line break between each paragraphs.\nContext:\n",
         "suffix": "\nResult:\n"
     },
     "rephrase_document" : {

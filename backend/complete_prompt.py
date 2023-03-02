@@ -12,9 +12,10 @@ def prompt_conditional_summary(topics: list, paragraph: str) -> str:
         prompt += '- keep information related to' + topic + '\n'
     prompt += '- keep the structure of the context\n'
     prompt += '- summary unrelated content using words in the context\n\n'
-    prompt += 'context:\n'
-
-    prompt += paragraph + '\n'
+    
+    prompt += "context:\n"
+    prompt += paragraph 
+    prompt += '\n'
 
     prompt += "Result:\n"
 
@@ -35,7 +36,8 @@ def expand_topics_from_clue(topics: list, paragraph: str, clue: str) -> str:
     prompt += clue + "\n"
 
     prompt += "context:\n"
-    prompt += paragraph + '\n'
+    prompt += paragraph 
+    prompt += '\n'
 
     prompt += "Result:\n"
 
@@ -50,7 +52,8 @@ def expand_topics_from_GPT(topics: list, paragraph: str) -> str:
     prompt += "- keep the structure of the context\n"
     
     prompt += "context:\n"
-    prompt += paragraph + '\n'
+    prompt += paragraph 
+    prompt += '\n'
 
     prompt += "Result:\n"
 

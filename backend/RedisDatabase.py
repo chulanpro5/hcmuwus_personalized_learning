@@ -1,14 +1,18 @@
 #%%
+import os
 import openai
 import numpy as np
 from redis import Redis
 from redis.commands.search.field import VectorField, TagField, NumericField
 from redis.commands.search.query import Query
+from dotenv import load_dotenv
+load_dotenv('./backend/key.env.local')
 
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
-host = "redis-19948.c302.asia-northeast1-1.gce.cloud.redislabs.com"
-port = 19948
-password = "q3YBUcKxlyppDWTJXnsUDmWVt6rzLOZY"
+host = os.environ["REDIS_HOST"]
+port = os.environ["REDIS_PORT"]
+password = os.environ["REDIS_PASSWORD"]
 INDEX_NAME = "hcmuwus-db"
 
 n_vec = 10000
@@ -34,7 +38,6 @@ class RedisDatabase():
         self.port = port
         self.password = password
         self.dict = {}
-        openai.api_key = "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"
         self.r = Redis(host = host, port = port, password = password)
 
     def get_idx(self, user_name : str):
@@ -220,6 +223,8 @@ class RedisDatabase():
     def query_paragraph_key_from_sentence(self, sentence : str, threshold : int = 0.85):
         result = self.search(query = sentence,k=1, search_by_field= sentence_vector_field)
         #get score from result
+        if(len(result.docs) == 0):
+            return None
         score = 1 - abs(float(result.docs[0].vector_score))
         print(result.docs[0].vector_score)
         if(score >  threshold):
@@ -231,6 +236,9 @@ class RedisDatabase():
     def query_paragraph_from_sentence(self, sentence : str):
         key = self.query_paragraph_key_from_sentence(sentence)
         
+        if(key is None):
+            return None
+
         paragraph = self.r.hget(key, 'metadata')
 
         return paragraph
