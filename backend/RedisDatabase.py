@@ -162,15 +162,23 @@ class RedisDatabase():
         results = self.r.ft(index_name = index_name).search(query, query_params = params_dict)
         return results
 
-    def query_topic(self,topic, threshold = 0.85):
-        result = self.search(topic, k = 1, index_name= INDEX_NAME, search_by_field= sentence_vector_field)
+    def query_topic(self,topic, threshold = 0.80):
+        result = self.search(topic, k = 1, index_name= INDEX_NAME, search_by_field= topic_vector_field)
         #get score from result
         score = 1 - abs(float(result.docs[0].vector_score))
+        print(score)
         if(score >  threshold):
             return result.docs[0].metadata
         
         #return the name of the topic
         return None
+    
+    def debug_query_topic(self,topic, threshold = 0.80):
+        result = self.search(topic, k = 1, index_name= INDEX_NAME, search_by_field= topic_vector_field)
+        score = 1 - abs(float(result.docs[0].vector_score))
+        print(score)
+       
+        return result
 
     def insert_topic(self, topic):
 

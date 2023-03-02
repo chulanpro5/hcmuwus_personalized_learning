@@ -12,14 +12,14 @@ modelInteraction = ModelInteraction()
 
 modelInteraction.connect_database(host, port)
 
-modelInteraction.redisDatabase.delete_data()
+# modelInteraction.redisDatabase.delete_data()
 
-modelInteraction.redisDatabase.create_index()
+# modelInteraction.redisDatabase.create_index()
 # %%
 
 #%%
 
-print(modelInteraction.redisDatabase.insert_paragraph('par1', paragraphs['par1']))
+# print(modelInteraction.redisDatabase.insert_paragraph('par1', paragraphs['par1']))
 # %%
 # %%
 sentences = paragraphs['par1'].split('.')
@@ -32,4 +32,7 @@ target_sentece = sentences[0]
 #%%
 print(modelInteraction.redisDatabase.query_paragraph_key_from_sentence(target_sentece))
 # %%
-
+#modelInteraction.redisDatabase.insert_topic('nice nice')
+# %%
+print(modelInteraction.redisDatabase.debug_query_topic('nice nice'))
+# %%
