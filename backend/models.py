@@ -183,7 +183,7 @@ class DocumentInteraction():
                     # insert each topic to redis database
                     for topic in topics:
                         self.redis.insert_topic(topic)
-                return new_paragraph
+                    return new_paragraph
     
     def user_click_sentence_get_ref(self, sentence: str) -> str:
         for idx, paragraph in enumerate(self.data):

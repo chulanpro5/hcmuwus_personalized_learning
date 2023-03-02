@@ -37,14 +37,22 @@ def listen_user():
     prompt = request.json['prompt']
     if (prompt == "Explain more about this"):
         payload = documentInteraction.user_click_sentence_expand(sentence)
-    if (prompt == "Show me the references"):
+
+        print(payload)
+        response = {
+            "payload" : json.dumps(payload)
+        }
+        return response
+    elif (prompt == "Show me the references"):
         payload = documentInteraction.user_click_sentence_get_ref(sentence)
 
-    print(payload)
-    response = {
-        "payload" : json.dumps(payload)
-    }
-    return response
+        print(payload)
+        response = {
+            "payload" : json.dumps(payload)
+        }
+        return response
+    
+    return "Error"
 
 
 if __name__ == '__main__':
