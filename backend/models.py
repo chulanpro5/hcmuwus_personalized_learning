@@ -51,23 +51,40 @@ def split_paragraph(paragraph: str, max_tokens: int = MAX_TOKENS):
 #     )
 #     return response.choices[0].text.strip()
 
-"""
-def paraphrase_paragraph(extracted-topic):
-    - summarize the paragraph: summarize_paragraph()
-    - for each topic in extracted-topic:
-        if topic is not in redis database: skip
-        if topic is in redis database:
-            - searching for the raw text of the topic: search_topic()
-            if the raw text is found:
-                - paraphrase the raw text: paraphrase_text() //cần prompt
-            if the raw text is not found:
-                - generate context for the topic: generate_context() //cần prompt
-                - paraphrase the context: paraphrase_text() 
 
-            - insert the paraphrased text into the paragraph: insert_paragraph()
+""" Prompt
+1. summarize 1 đoạn có điều kiện
+2. generate nội dung cho topics dựa vào 1 đoạn từ nội dung gốc
+3. generate nội dung cho topics từ GPT bth(không có ref)
+4. rephrase toàn bộ document:
+    - liên kết các câu với nhau
+    - ngắt đoạn theo nội dung
+"""
+"""
+def processing_paragraph():
+    - extract the topic of the paragraph: extract_topic()
+    - for each topic in extracted-topic:
+        if topic is not in redis database: summarize_paragraph()
+        if topic is in redis database:
+            summarize_paragraph_prompt_1()
     
     - paraphrase hole paragraph
     - return the paragraph
+"""
+
+""" When user click on a sentence, expand the context of the sentence
+    if the sentence is in redis database:
+        expand the context by paragraph in redis database: prompt_2()
+    if the sentence is not in redis database:
+        expand the context by GPT-3 database: prompt_3()
+"""
+
+""" processing_document():
+    - Split the document into paragraphs: split_paragraph()
+    - for each paragraph in the document:
+        - processing_paragraph()
+    - merge the paragraphs
+    - rephrase the document: prompt_4()
 """
 
 
