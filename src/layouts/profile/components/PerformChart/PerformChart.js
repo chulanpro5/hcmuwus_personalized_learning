@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite';
 function PerformanceChart(props) {
   const state = {
     series: [{
+      name: "Hours",
       data: props.store !== null ? props.store.getData : [21, 22, 10, 28, 16, 21, 13]
     }],
     options: {
@@ -76,23 +77,23 @@ function PerformanceChart(props) {
         ],
         labels: {
           style: {
-            colors: "#5B7553",
+            colors: "#0077FF",
             fontSize: '12px',
             fontWeight: 'bold'
           }
         },
       },
       yaxis: {
-
+        
       }
     }
   }
   return (
-    <Paper sx={{ width: 500, borderRadius: 10, height: 360, margin: 5, padding: 5 }} >
-      <VuiTypography color="black" variant="h3" fontWeight="bold">
+    <Paper sx={{ width: 500, borderRadius: 10, height: 360, margin: 5, padding: 3 }} >
+      <VuiTypography color="black" variant="lg" fontWeight="bold" sx={{fontSize: 30, marginLeft: 31}}>
         Performance
       </VuiTypography>
-      <ReactApexChart options={state.options} series={state.series} type="bar" height={249.77} width={414} />
+      <ReactApexChart options={state.options} series={state.series} type="bar" height={280} width={440} padding={2}/>
     </Paper >
   );
 }

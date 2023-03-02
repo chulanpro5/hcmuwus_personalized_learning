@@ -7,16 +7,16 @@ import WelcomeMark from "layouts/dashboard/components/WelcomeMark";
 import PerformanceChart from "./components/PerformChart/PerformChart";
 import MyBookshelf from "./components/Bookshelf/bookshelf";
 import Paper from '@mui/material/Paper';
-import { Calendar } from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
-import "./Calendar.css";
+
+import { CustomCalendar } from "./components/Calendar/CustomCalendar";
+
 import ChartStore from "stores/ChartStore";
 import { observer } from "mobx-react-lite";
 import store from 'stores/userInfo';
 
 function Overview() {
   const store = new ChartStore();
-  const newData = [23, 23, 23, 21, 12, 12, 0];
+  const newData = [23, 23, 23, 21, 12, 12, 14];
   const newDay = [
     ['Monday', '12-07-2022'],
     ['Tuesday', '13-07-2023'],
@@ -30,7 +30,7 @@ function Overview() {
 
   newData.map(data => store.addNewData(data));
   newDay.map(day => store.addNewDay(day));
-  
+
   return (
     <DashboardLayout>
       <VuiBox>
@@ -67,11 +67,14 @@ function Overview() {
               <PerformanceChart store={store} />
             </Grid>
             <Grid item>
-              <Paper sx={{ width: 500, height: 380, borderRadius: 10, padding: 4 }}>
+              {/* <Paper sx={{ width: 500, height: 380, borderRadius: 10, padding: 4 }}>
                 <div className="card flex justify-content-center">
-                  <Calendar />
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <Calendar />
+                  </MuiPickersUtilsProvider>
                 </div>
-              </Paper>
+              </Paper> */}
+              <CustomCalendar/>
             </Grid>
           </Grid>
 

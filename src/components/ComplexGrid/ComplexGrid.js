@@ -31,7 +31,7 @@ function CircularProgressWithLabel(props) {
           justifyContent: 'center',
         }}
       >
-        <Typography variant="caption" component="div" color="text.secondary">
+        <Typography variant="caption" component="div" color="text.secondary" fontWeight="bold" fontSize={20}>
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>
@@ -50,28 +50,32 @@ export default function ComplexGrid(props) {
   return (
     <Paper
       sx={{
-        p: 2,
         margin: 2,
-        maxWidth: 500,
+        marginLeft: 0,
+        width: 430,
         flexGrow: 1,
-        borderRadius: 5,
-        padding: 2,
-        backgroundColor: (theme) =>
+        borderRadius: 10,
+        padding: 1,
+        backgroundColor: (props.progress === 100)? 'lightgreen': (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+        '&:hover': {
+          backgroundColor:  'lightgray',
+          opacity:[0.7,0.5,0.7]
+        }
       }}
     >
-    <Button>
-      <Grid container spacing={2} justifyContent='center' alignItems={'center'}>
-        <Grid item>
-          <CircularProgressWithLabel value={props.progress} color="success" size={70}/>
+      <Button>
+        <Grid container spacing={2} justifyContent='center' alignItems={'center'}>
+          <Grid item>
+            <CircularProgressWithLabel value={props.progress} color={(props.progress === 100)? 'success': (props.progress >= 50) ? 'orange': 'error'} size={100} />
+          </Grid>
+          <Grid item xs>
+            <Typography gutterBottom variant="lg" component="div">
+              <p style={{ fontSize: 20, color: (props.progress === 100)? 'black': (props.progress >= 50)? 'orange': 'red', fontWeight: 'bold' }}>{props.title}</p>
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs>
-          <Typography gutterBottom variant="subtitle1" component="div">
-            <p style={{fontSize:20, fontFamily: "Arial", color: "green", fontWeight: 15}}>{props.title}</p>
-          </Typography>
-        </Grid>
-      </Grid>
-    </Button>
+      </Button>
     </Paper>
   );
 }
