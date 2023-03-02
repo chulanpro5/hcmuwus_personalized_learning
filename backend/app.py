@@ -1,128 +1,53 @@
+from models import ModelInteraction, DocumentInteraction
+from crawl_data import crawl_url
+
 from flask import Flask,request
-import pinecone
-import openai 
 import os
 import json
 from flask_cors import CORS
 from dotenv import load_dotenv
-import textstat
-load_dotenv('./key.env')
+load_dotenv('./key.env.local')
 
-
-pinecone_api_key = os.environ.get('pinecone_api_key')
-pinecone_env = os.environ.get('pinecone_env')
-pinecone_index_name = os.environ.get('pinecone_index_name')
-openai.api_key = os.environ.get('openai_api_key')
-
-def embed_text(text):
-    model_engine = "text-embedding-ada-002"
-
-    embedding = openai.Embedding.create(
-        model= model_engine,
-        input= text
-    )
-    return embedding
+documentInteraction = DocumentInteraction()
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route("/")
-def hello_world():
+async def hello_world():
     return "<p>Hello, World!</p>"
 
-#co = cohere.Client(cohere_api_key)
-
-index_name = pinecone_index_name
-pinecone.init(pinecone_api_key, environment=pinecone_env)
-index = pinecone.Index(index_name)
-
-
-limit = 1600
-
-def get_gpt_embedding(query):
-    model_engine = "text-davinci-003"
-    embedding = openai.Embedding.create(
-        model= model_engine,
-        input= query
-    )
-    return embedding
-
-def retrieve_from_gpt(query):
-    xq = get_gpt_embedding(query)
-    # search pinecone index for context passage with the answer
-    xc = index.query(xq, top_k=3, include_metadata=True)
-    contexts = [
-        x['metadata']['text'] for x in xc['matches']
-    ]
-
-    # build our prompt with the retrieved contexts included
-    prompt_start = (
-        "Answer the Query based on the contexts, if it's not in the contexts say 'I don't know the answer'. \n\n"+
-        "Context:\n"
-    )
-    prompt_end = (
-        f"\n\nQuery: {query}\nAnswer in the language of Query, if Query is in English Answer in English. Please provide reference Quran verses."
-    )
-    # append contexts until hitting limit
-    for i in range(1, len(contexts)):
-        if len("\n\n---\n\n".join(contexts[:i])) >= limit:
-            prompt = (
-                prompt_start +
-                "\n\n---\n\n".join(contexts[:i-1]) +
-                prompt_end
-            )
-            break
-        elif i == len(contexts)-1:
-            prompt = (
-                prompt_start +
-                "\n\n---\n\n".join(contexts) +
-                prompt_end
-            )
-    return prompt
-
-def complete(prompt):
-    # query text-davinci-003
-    res = openai.Completion.create(
-        engine='text-davinci-003',
-        prompt=prompt,
-        temperature=0,
-        max_tokens=1000,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0,
-        stop=None
-    )
-    return res['choices'][0]['text'].strip()
-
-
-
-
-def feedback_processing(feedback):
-    pass
-
-def update_learning_state_to_database(learning_state : str):
-    # Please make an update to pinecone index
-    pinecone_index_name = os.environ.get('pinecone_index_name')
-    pinecone_api_key = os.environ.get('pinecone_api_key')
-    pinecone_env = os.environ.get('pinecone_env')
-    pinecone.init(pinecone_api_key, environment=pinecone_env)
-    index = pinecone.Index(pinecone_index_name)
-
-    # get the embedding of the learning state
-    xq = get_gpt_embedding(learning_state)
-    # add the embedding to the pinecone index
-    index.upsert(xq, metadata={"text": learning_state}, namespace="learning_state")
+@app.route('/api/wiki_retrieve/', methods=['POST'])
+def listen_url():
+    url = request.json['url']
+    documentInteraction.insert_document(crawl_url(url))
+    documentInteraction.processing_document()
+    payload = documentInteraction.get_data()
+    print(payload)
+    # payload = [["AI is used to show intelligence in activities such as speech recognition, computer vision, and language translation"], ["Examples of AI applications include web search engines (Google Search), recommendation systems (YouTube, Amazon, Netflix), understanding human speech (Siri, Alexa), self-driving cars (Waymo), generative or creative tools (ChatGPT, AI art), automated decision-making and strategic game systems (chess, Go)"], ["AI is used in a wide range of topics and activities"]]
+    response = {
+        "payload" : json.dumps(payload)
+    }
+    return response
     
 
+@app.route('/api/user_interact/', methods=['POST'])
+def listen_user():
+    sentence = request.json['sentence']
+    prompt = request.json['prompt']
+    if (prompt == "Explain more about this"):
+        payload = documentInteraction.user_click_sentence_expand(sentence)
+    if (prompt == "Show me the references"):
+        payload = documentInteraction.user_click_sentence_get_ref(sentence)
 
-@app.route('/api/predict', methods=['POST'])
-def predict():
-    query = request.json.get("query")
-    query_with_contexts = retrieve_from_gpt(query)
-    print(query_with_contexts)
-    bot = complete(query_with_contexts)
+    print(payload)
+    response = {
+        "payload" : json.dumps(payload)
+    }
+    return response
 
-    return {"bot": bot}
-    
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+

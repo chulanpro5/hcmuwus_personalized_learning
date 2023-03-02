@@ -5,7 +5,6 @@ import VuiTypography from 'components/VuiTypography';
 import { useState, useEffect } from 'react';
 import { PopupComments } from "./PopupComments";
 
-
 export const ParagraphComponent = (props) => {
     const [pColor, setPColor] = useState('#8dadf7');
 

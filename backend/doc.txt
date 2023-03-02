@@ -28,3 +28,4 @@ You can get assembly from the source by passing the -S flag to the compiler, whi
 Apart from the assembly, the other most helpful level of abstraction is the intermediate representation on which compilers perform optimizations. The IR defines the flow of computation itself and is much less dependent on architecture features like the number of registers or a particular instruction set. It is often useful to inspect these to get insight into how the compiler sees your program, but this is a bit out of the scope of this book.
 
 We will mainly use GCC in this chapter, but also try to duplicate examples for Clang when necessary. The two compilers are largely compatible with each other, for the most part only differing in some optimization flags and minor syntax details.
+
