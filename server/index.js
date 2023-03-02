@@ -13,22 +13,22 @@ app.get("/api", (req, res) => {
     });
 });
 
-app.post("/api/wiki_retrieve", (req, res) => {
-    fetch("ashgfhjfsad", {
+app.post("/api/wiki_retrieve/", (req, res) => {
+    fetch("https://c059-113-22-113-75.ap.ngrok.io/api/wiki_retrieve/", {
         method: 'POST',
-        body: JSON.stringify(req.data),
+        body: JSON.stringify(req.body),
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
         },
     })
-    .then(data => res.end(data.body.json()))
-    .catch(err => res.status(500))
+    .then(response => response.json(), err => res.status(500))
+    .then(data => console.log(data), res.end(data))
 })
 
-app.post("/api/user_interact", (req, res) => {
-    fetch("ashgfhjfsad", {
+app.post("/api/user_interact/", (req, res) => {
+    fetch("tcp://0.tcp.ap.ngrok.io:17530/api/use", {
         method: 'POST',
-        body: JSON.stringify(req.data),
+        body: JSON.stringify(req.body),
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
         },

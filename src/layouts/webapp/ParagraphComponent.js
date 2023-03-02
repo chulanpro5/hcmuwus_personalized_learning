@@ -26,9 +26,14 @@ export const ParagraphComponent = (props) => {
                 padding: 1
             }}
             >
-                <VuiTypography>
-                    {props.paragraph}
-                </VuiTypography>
+                {
+                    props.paragraph.map(sentence => (
+                        <span>
+                            {sentence}
+                        </span>
+                    ))
+                }
+                
             </ListItem>)}/>
     )
 }

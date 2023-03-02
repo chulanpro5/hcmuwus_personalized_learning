@@ -49,7 +49,8 @@ const testData = [`MobX is an open source state management tool. When creating a
   `In addition to being a library, MobX also introduces a few concepts: state, actions, and derivations (including reactions and computed values).`,
   `Application state refers to the entire model of an application, and can contain different data types including array, numbers, and objects. In MobX, actions are methods that manipulate and update the state. These methods can be bound to a JavaScript event handler to ensure a UI event triggers them.`,
   `Anything (not just a value) that is derived from the application state without further interaction is referred to as a derivation. Derivations will listen to any particular state and then perform some computation to produce a distinct value from that state. A derivation can return any data type, including objects. In MobX, the two types of derivations are reactions and computed values.`]
-function Webapp()
+const testDataAPI = '[["AI is used to show intelligence in activities such as speech recognition, computer vision, and language translation","2nd sentence", "3rd sentence"], ["Examples of AI applications include web search engines (Google Search), recommendation systems (YouTube, Amazon, Netflix), understanding human speech (Siri, Alexa), self-driving cars (Waymo), generative or creative tools (ChatGPT, AI art), automated decision-making and strategic game systems (chess, Go)"], ["AI is used in a wide range of topics and activities"]]'
+  function Webapp()
 {
   //const store = new ContentStore();
   const [url, setUrl] = useState("https://en.wikipedia.org/wiki/GPT-3")
@@ -82,16 +83,17 @@ function Webapp()
   });
 
   const handleSubmit = () => {
-    axios({
-      method: 'post',
-      url: "http://localhost:4000/api/wiki_retrieve",
-      data: {
-        url: url,
-        apiKey: key
-      }
-    })
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    // axios({
+    //   method: 'post',
+    //   url: "http://localhost:4000/api/wiki_retrieve/",
+    //   data: {
+    //     url: url,
+    //     apiKey: key
+    //   }
+    // })
+    // .then(res => console.log(res.data), useContent(res.data))
+    // .catch(err => console.log(err))
+    useContent(JSON.parse(testDataAPI))
     setOpenai(new OpenAIApi(new Configuration({ apiKey: key })))
   }
 
