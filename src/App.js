@@ -47,6 +47,7 @@ import routes from "routes";
 
 // Vision UI Dashboard React contexts
 import { useVisionUIController, setMiniSidenav, setOpenConfigurator } from "context";
+//import UserStore from "stores/userInfo";
 
 export default function App() {
   const [controller, dispatch] = useVisionUIController();
@@ -54,7 +55,7 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-
+  //const userInfo = new UserStore();
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
@@ -102,7 +103,11 @@ export default function App() {
       }
 
       if (route.route) {
-        return <Route exact path={route.route} component={route.component} key={route.key} />;
+        console.log("route.component");
+        return <Route exact path={route.route} 
+        render={(props) => <route.component {...props}/>}
+        //component={() => (<route.component store={userInfo} />)}
+        authed={true} key={route.key} />;
       }
 
       return null;
@@ -136,12 +141,12 @@ export default function App() {
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={themeRTL}>
         <CssBaseline />
-        {layout === "dashboard" && (
+        {layout === "dashboard"  && (
           <>
             <Sidenav
               color={sidenavColor}
               brand=""
-              brandName="VISION UI FREE"
+              brandName="Personalized Learning Platform"
               routes={routes}
               onMouseEnter={handleOnMouseEnter}
               onMouseLeave={handleOnMouseLeave}
@@ -153,7 +158,7 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/dashboard" />
+          <Redirect from="*" to="/landing page" />
         </Switch>
       </ThemeProvider>
     </CacheProvider>
@@ -165,7 +170,7 @@ export default function App() {
           <Sidenav
             color={sidenavColor}
             brand=""
-            brandName="VISION UI FREE"
+            brandName="Personalized Learning Platform"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
@@ -177,7 +182,7 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Switch>
         {getRoutes(routes)}
-        <Redirect from="*" to="/dashboard" />
+        <Redirect from="*" to="/landing page" />
       </Switch>
     </ThemeProvider>
   );

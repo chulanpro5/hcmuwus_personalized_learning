@@ -43,26 +43,39 @@ import Dashboard from "layouts/dashboard";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import Webapp from "layouts/webapp";
+import Landing from "layouts/landingPage";
 
 // Vision UI Dashboard React icons
 import { IoRocketSharp } from "react-icons/io5";
 import { IoIosDocument } from "react-icons/io";
-import { BsFillPersonFill } from "react-icons/bs";
+import { BsFillPersonFill, BsSticky } from "react-icons/bs";
 import { IoBuild } from "react-icons/io5";
 import { BsCreditCardFill } from "react-icons/bs";
 import { IoStatsChart } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
+import Chatbot from "layouts/chatbot";
+import Notes from "layouts/notes";
 
 const routes = [
-  // {
-  //   type: "collapse",
-  //   name: "Dashboard",
-  //   key: "dashboard",
-  //   route: "/dashboard",
-  //   icon: <IoHome size="15px" color="inherit" />,
-  //   component: Dashboard,
-  //   noCollapse: true,
-  // },
+  {
+    type: "collapse",
+    name: "Dashboard",
+    key: "dashboard",
+    route: "/dashboard",
+    icon: <IoHome size="15px" color="inherit" />,
+    component: Dashboard,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Notes",
+    key: "notes",
+    route: "/notes",
+    icon: <IoHome size="15px" color="inherit" />,
+    component: Notes,
+    noCollapse: true,
+  },
   // {
   //   type: "collapse",
   //   name: "Tables",
@@ -93,32 +106,58 @@ const routes = [
   // { type: "title", title: "Account Pages", key: "account-pages" },
   {
     type: "collapse",
+    name: "Webapp",
+    key: "webapp",
+    route: "/webapp",
+    icon: <BsSticky size="15px" color="inherit" />,
+    component: Webapp,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
     name: "Profile",
     key: "profile",
     route: "/profile",
     icon: <BsFillPersonFill size="15px" color="inherit" />,
     component: Profile,
     noCollapse: true,
-  }
-  // },
-  // {
-  //   type: "collapse",
-  //   name: "Sign In",
-  //   key: "sign-in",
-  //   route: "/authentication/sign-in",
-  //   icon: <IoIosDocument size="15px" color="inherit" />,
-  //   component: SignIn,
-  //   noCollapse: true,
-  // },
-  // {
-  //   type: "collapse",
-  //   name: "Sign Up",
-  //   key: "sign-up",
-  //   route: "/authentication/sign-up",
-  //   icon: <IoRocketSharp size="15px" color="inherit" />,
-  //   component: SignUp,
-  //   noCollapse: true,
-  // },
+  },
+  {
+    type: "collapse",
+    name: "Sign In",
+    key: "sign-in",
+    route: "/authentication/sign-in",
+    icon: <IoIosDocument size="15px" color="inherit" />,
+    component: SignIn,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    route: "/authentication/sign-up",
+    icon: <IoRocketSharp size="15px" color="inherit" />,
+    component: SignUp,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Chatbot",
+    key: "chatbot",
+    route: "/chatbot",
+    icon: <IoRocketSharp size="15px" color="inherit" />,
+    component: Chatbot,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Landing Page",
+    key: "landing-page",
+    route: "/landing page",
+    icon: <IoRocketSharp size="15px" color="inherit" />,
+    component: Landing,
+    noCollapse: true,
+  },
 ];
 
 export default routes;

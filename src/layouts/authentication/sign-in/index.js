@@ -16,7 +16,7 @@
 
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -39,22 +39,70 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
 import bgSignIn from "assets/images/signInImage.png";
+import jwt_decode from "jwt-decode"
+//import UserStore from "stores/userInfo";
+import { observer } from 'mobx-react';
+import store from 'stores/userInfo';
 
 function SignIn() {
+  const [user, setUser] = useState({});
   const [rememberMe, setRememberMe] = useState(true);
+
+  const handleCheckUser = (user) => {
+    
+    // Render user information
+  }
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
+  const handleCallbackResponse = (res) => {
+    console.log("Encoded JWT ID Token: " + res.credential);
+    var userObject = jwt_decode(res.credential)
+
+    if (store.findUser(userObject.sub)) {
+      console.log("User exists");
+      setUser(userObject)
+      document.getElementById("signinDiv").hidden = true
+      document.getElementById("sign-in-button").classList.remove("Mui-disabled");
+      document.getElementById("sign-in-button").disabled = false;
+      document.getElementById("dont-have-account").hidden = true;
+      
+    } else {
+      console.log("User does not exist");
+      document.getElementById("dont-have-account").hidden = true;
+      document.getElementById("wrong-email-text").hidden = false;
+    }
+    console.log(userObject)
+  }
+  const handleSignOut = () => {
+    setUser({});
+    document.getElementById("signinDiv").hidden = false;
+  }
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id: "366197597969-qh86apab0humd4326ooo4pok0aeifrkh.apps.googleusercontent.com",
+      callback: handleCallbackResponse
+    })
+
+    google.accounts.id.renderButton(
+      document.getElementById("signinDiv"),
+      { theme: "outline", size: "large"}
+    )
+  }, [])
   return (
     <CoverLayout
       title="Nice to see you!"
       color="white"
-      description="Enter your email and password to sign in"
-      premotto="INSPIRED BY THE FUTURE:"
-      motto="THE VISION UI DASHBOARD"
+      description=" "
+      premotto="PERSONALIZED LEARNING PLATFORM:"
+      motto="THE NEW WAY OF LEARNING"
       image={bgSignIn}
     >
       <VuiBox component="form" role="form">
+        
+          <div id="signinDiv"></div>
+          {user && (<p>{user.name}</p>)}
+           {/*
         <VuiBox mb={2}>
           <VuiBox mb={1} ml={0.5}>
             <VuiTypography component="label" variant="button" color="white" fontWeight="medium">
@@ -99,6 +147,7 @@ function SignIn() {
             />
           </GradientBorder>
         </VuiBox>
+      
         <VuiBox display="flex" alignItems="center">
           <VuiSwitch color="info" checked={rememberMe} onChange={handleSetRememberMe} />
           <VuiTypography
@@ -110,15 +159,30 @@ function SignIn() {
           >
             &nbsp;&nbsp;&nbsp;&nbsp;Remember me
           </VuiTypography>
-        </VuiBox>
+            </VuiBox> */}
+          <VuiTypography id="wrong-email-text" hidden="true" variant="button" color="warning" fontWeight="regular">
+            You haven't registed yet! {" "}
+            <VuiTypography
+              component={Link}
+              to="/authentication/sign-up"
+              variant="button"
+              color="text"
+              fontWeight="medium"
+            >
+              Sign up
+            </VuiTypography>
+          </VuiTypography>
         <VuiBox mt={4} mb={1}>
-          <VuiButton color="info" fullWidth>
+
+        <a href="/profile">
+          <VuiButton id="sign-in-button" disabled={true} color="info" fullWidth onClick={() => handleCheckUser(user)} >
             SIGN IN
           </VuiButton>
-        </VuiBox>
+          </a>
+          </VuiBox>
         <VuiBox mt={3} textAlign="center">
-          <VuiTypography variant="button" color="text" fontWeight="regular">
-            Don&apos;t have an account?{" "}
+          <VuiTypography id="dont-have-account" variant="button" color="text" fontWeight="regular">
+            Don't have an account?{" "}
             <VuiTypography
               component={Link}
               to="/authentication/sign-up"
@@ -135,4 +199,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default observer(SignIn);
