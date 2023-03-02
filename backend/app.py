@@ -1,5 +1,7 @@
-from flask import Flask,request
 from models import ModelInteraction, DocumentInteraction
+from crawl_data import crawl_url
+
+from flask import Flask,request
 import os
 import json
 from flask_cors import CORS

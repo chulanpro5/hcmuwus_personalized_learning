@@ -1,6 +1,7 @@
 DEBUG = True
 
 import complete_prompt
+from crawl_data import crawl_url
 
 import os
 import openai
@@ -10,14 +11,14 @@ load_dotenv('./key.env.local')
 from RedisDatabase import *
 
 # openai api key
-openai.api_key = os.environ["OPENAI_API_KEY"]
+openai.api_key = os.getenv("OPENAI_API_KEY")
 OPENAI_EMBEDDINGS_ENGINE = "text-embedding-ada-002"
 OPENAI_COMPLETIONS_ENGINE = "text-davinci-003"
 MAX_TOKENS = 2000
 TEMPERATURE = 0
 
 # load prompt from json file
-prompt_list =  json.load(open('prompt.json', 'r'))
+prompt_list =  json.loads(open('./prompt.json', 'r'))
 
 
 class ModelInteraction():
@@ -199,10 +200,10 @@ class DocumentInteraction():
 
 if __name__ == "__main__":
     # load text from text file
-    with open('wiki_1.txt', 'r') as file:
-        text = file.read().replace('\n', '')
+    # with open('wiki_1.txt', 'r') as file:
+    #     text = file.read().replace('\n', '')
     test = DocumentInteraction()
-    test.insert_document(text)
+    test.insert_document(crawl_url("https://en.wikipedia.org/wiki/Artificial_intelligence"))
     print(test.get_document())
     test.processing_document()
     data = json.dumps(test.get_data())
