@@ -45,6 +45,7 @@ const testData = [`MobX is an open source state management tool. When creating a
 function Webapp() {
 
   const [content, useContent] = useState(testData);
+  const [resume, setResume] = useState(false);
   const [file, setFile] = useState([]);
 
 
@@ -102,7 +103,7 @@ function Webapp() {
               height={810}
               bgColor="light"
               borderRadius={"lg"}>
-              {content !== null? (
+              {content !== null && resume? (
                 <DocumentGenerator document={content}/>
               ) : (
                 <VuiBox
@@ -120,7 +121,7 @@ function Webapp() {
                       <label for="file-upload">Upload New File...</label>
                     </VuiTypography>
                   </VuiButton>
-                  <VuiButton variant="contained" color="info" style={{width: "50%", height: "6%"}}>
+                  <VuiButton variant="contained" color="info" style={{width: "50%", height: "6%"}} onClick={() => setResume(true)}>
                     <BsArrowRepeat size="20px" color="inherit" />
                     <VuiTypography variant="lg" color="light" mx={1}>
                       Resume Learning
