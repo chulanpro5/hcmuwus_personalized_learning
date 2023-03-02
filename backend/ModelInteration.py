@@ -4,6 +4,7 @@ import openai
 import json
 from dotenv import load_dotenv
 from RedisDatabase import *
+import ast
 
 
 OPENAI_EMBEDDINGS_ENGINE = "text-embedding-ada-002"
@@ -42,7 +43,7 @@ class ModelInteraction():
 
         prompt+= "Result:\n"
         response = self.interact_gpt(prompt, max_tokens)
-        return response.choices[0].text.strip()
+        return json.loads(response.choices[0].text.strip())
 
     # def paraphrase_paragraph(paragraph: str, max_tokens: int = MAX_TOKENS) -> str:
     #     prompt = "paraphrase the following paragraph by these requirement :\n\n" + paragraph + "\n\n1."
@@ -78,15 +79,19 @@ class ModelInteraction():
 
     def generate_context_from_raw(self, target_paragraph : str):
         
-        related_information = RedisDatabase.search(target_paragraph, k = 1, search_by_field=sentence_vector_field)
-        prompt = "Rewrite the following context \n"
+        related_information = self.redisDatabase.search(query = target_paragraph, k = 1, search_by_field=sentence_vector_field)
+        prompt = " \n"
         
         topics = self.extract_topic(target_paragraph)
 
-        for topic in topics:
-            if(RedisDatabase.query_topic(topic) == None):
+
+        for topic in list(topics):
+            
+            if(self.redisDatabase.query_topic(topic) == None):
                 continue
-            prompt += '- keep information related to' + topic + '\n'
+            print(topic)
+            prompt += '- no modification of information related to ' + topic + '\n'
+
 
         prompt += '- keep the structure of the context\n'
 
@@ -94,10 +99,12 @@ class ModelInteraction():
 
         prompt += 'context\n'
 
+        
+
 
         paragraph_keys = [info.metadata for info in related_information.docs]
 
-        paragraphs = [RedisDatabase.search(key, search_by_field=paragraph_vector_field).docs[0].metadata for key in paragraph_keys]
+        paragraphs = [self.redisDatabase.search(key, search_by_field=paragraph_vector_field).docs[0].metadata for key in paragraph_keys]
 
         context = ""
 
@@ -125,7 +132,7 @@ class ModelInteraction():
             stop=None,
             temperature=TEMPERATURE,
         )
-        return response.choices[0].text.strip()
+        return json.loads(response.choices[0].text.strip())
 
     """
         - Split the document into paragraphs: split_paragraph()
