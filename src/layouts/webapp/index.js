@@ -94,6 +94,7 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
     // .then(res => console.log(res.data), useContent(res.data))
     // .catch(err => console.log(err))
     useContent(JSON.parse(testDataAPI))
+    console.log(content);
     setOpenai(new OpenAIApi(new Configuration({ apiKey: key })))
   }
 
