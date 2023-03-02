@@ -22,19 +22,19 @@ app.post("/api/wiki_retrieve/", (req, res) => {
         },
     })
     .then(response => response.json(), err => res.status(500))
-    .then(data => console.log(data), res.end(data))
+    .then(data => res.json(data))
 })
 
 app.post("/api/user_interact/", (req, res) => {
-    fetch("tcp://0.tcp.ap.ngrok.io:17530/api/use", {
+    fetch("https://c059-113-22-113-75.ap.ngrok.io/api/user_interact/", {
         method: 'POST',
         body: JSON.stringify(req.body),
         headers: {
             'Content-type': 'application/json; charset=UTF-8'
         },
     })
-    .then(data => res.end(data.body.json()))
-    .catch(err => res.status(500))
+    .then(response => response.json(), err => res.status(500))
+    .then(data => res.json(data))
 })
 
 app.listen(PORT, () => {

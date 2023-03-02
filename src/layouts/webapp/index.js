@@ -83,17 +83,17 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
   });
 
   const handleSubmit = () => {
-    // axios({
-    //   method: 'post',
-    //   url: "http://localhost:4000/api/wiki_retrieve/",
-    //   data: {
-    //     url: url,
-    //     apiKey: key
-    //   }
-    // })
-    // .then(res => console.log(res.data), useContent(res.data))
-    // .catch(err => console.log(err))
-    useContent(JSON.parse(testDataAPI))
+    axios({
+      method: 'post',
+      url: "http://localhost:4000/api/wiki_retrieve/",
+      data: {
+        url: url,
+        apiKey: key
+      }
+    })
+    .then(res => useContent(JSON.parse(res.data.payload)))
+    .catch(err => console.log(err))
+    //useContent(JSON.parse(testDataAPI))
     setOpenai(new OpenAIApi(new Configuration({ apiKey: key })))
   }
 
