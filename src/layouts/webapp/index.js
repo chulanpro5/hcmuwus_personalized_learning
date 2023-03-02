@@ -41,6 +41,7 @@ import store from "stores/ContentStore";
 import NotesStore from "stores/NotesStore";
 
 import { Configuration, OpenAIApi } from "openai";
+import { SideBar } from './SideBar';
 
 const testData = [`MobX is an open source state management tool. When creating a web application, developers often seek an effective way of managing state within their applications. One solution is to use a unidirectional data flow pattern named Flux, introduced by the React team, and later implemented in a package called React-Redux, which made the use of the Flux pattern even easier.`,
   `MobX, a simple, scalable, and standalone state management library, follows functional reactive programming (FRP) implementation and prevents inconsistent state by ensuring that all derivations are performed automatically. According to the MobX getting started page, “MobX makes state management simple again by addressing the root issue: it makes it impossible to produce an inconsistent state.”`,
@@ -50,8 +51,10 @@ const testData = [`MobX is an open source state management tool. When creating a
   `Application state refers to the entire model of an application, and can contain different data types including array, numbers, and objects. In MobX, actions are methods that manipulate and update the state. These methods can be bound to a JavaScript event handler to ensure a UI event triggers them.`,
   `Anything (not just a value) that is derived from the application state without further interaction is referred to as a derivation. Derivations will listen to any particular state and then perform some computation to produce a distinct value from that state. A derivation can return any data type, including objects. In MobX, the two types of derivations are reactions and computed values.`]
 const testDataAPI = '[["AI is used to show intelligence in activities such as speech recognition, computer vision, and language translation","2nd sentence", "3rd sentence"], ["Examples of AI applications include web search engines (Google Search), recommendation systems (YouTube, Amazon, Netflix), understanding human speech (Siri, Alexa), self-driving cars (Waymo), generative or creative tools (ChatGPT, AI art), automated decision-making and strategic game systems (chess, Go)"], ["AI is used in a wide range of topics and activities"]]'
-  function Webapp()
-{
+
+const folderData = [{ name: 'Computer Hardware', books: ['Book 1', 'Book 2'] }, { name: 'Programming', books: ['Book 1', 'Book 2'] }, { name: 'Mathematics', books: ['Book 1', 'Book 2'] },
+{ name: 'Novel', books: ['Book 3.1', 'Book 3'] }, { name: 'Marvel', books: ['Book 4', 'Book 6'] }, { name: 'Sciences', books: ['Book 1.1', 'Book 2.2'] }, { name: 'Literature', books: ['Book 1.2', 'Book 2.2'] }, { name: 'History', books: ['Book 1.2', 'Book 2.1'] }]
+function Webapp() {
   //const store = new ContentStore();
   const [url, setUrl] = useState("https://en.wikipedia.org/wiki/GPT-3")
   const [key, setKey] = useState("");
@@ -59,22 +62,18 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
   const [content, useContent] = useState(null);
   const [file, setFile] = useState([]);
 
-  useEffect(() =>
-  {
+  useEffect(() => {
 
   }, [])
 
-  const handleFileChange = (e =>
-  {
-    if (e.target.files)
-    {
+  const handleFileChange = (e => {
+    if (e.target.files) {
       setFile(e.target.files[0]);
     }
     const file = e.target.files[0];
     const reader = new FileReader();
 
-    reader.onload = () =>
-    {
+    reader.onload = () => {
       useContent(reader.result.split('\n'))
       //fileContents.textContent = reader.result;
     };
@@ -98,8 +97,7 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
     setOpenai(new OpenAIApi(new Configuration({ apiKey: key })))
   }
 
-  const handleAddNote = () =>
-  {
+  const handleAddNote = () => {
     const note = {
       "content": content,
       "id": uuidv4()
@@ -112,26 +110,8 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
     <DashboardLayout>
       {/* <DashboardNavbar /> */}
       <VuiBox py={3} height={810} marginBottom={5}>
-        <Grid container spacing="3px" height="100%" display="flex" justifyContent="space-between">
-          <Grid item xs={12} lg={1.75}>
-            <VuiBox bgColor="light" height="100%" width="100%" borderRadius="lg" p={3} >
-              <VuiBox display="flex"
-                justifyContent="top"
-                alignItems="center"
-                height="5%"
-                flexDirection="column"
-                px="25%"
-                bgColor="light"
-                marginTop={-2}>
-                <VuiButton variant="contained" color="info" padding={1}>
-                  <MdFolder size="15px" color="inherit" />
-                  <VuiTypography variant="lg" color="light" mx={1} >
-                    Directory
-                  </VuiTypography>
-                </VuiButton>
-              </VuiBox>
-            </VuiBox>
-          </Grid>
+        <Grid container={true} spacing="3px" height="100%" display="flex" justifyContent="space-between">
+          <SideBar folders={folderData} />
           <Grid item xs={12} lg={10}>
             <VuiBox
               p={3}
@@ -139,33 +119,31 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
               bgColor="light"
               borderRadius={"lg"}>
               {content !== null ? (
-                  <VuiBox>
-                    <VuiTypography opacity={0.5}>
-                      {url + `: ` + content[0].slice(0, 200) + `...`}
-                    </VuiTypography>
-                    <DocumentGenerator document={content} />
-                    <VuiBox display="flex" gap={3} justifyContent="flex-end" m={3}>
-                      <VuiButton color="info" onClick={() =>
-                      {
-                        //store.updateContent(content)
-                        localStorage.setItem("content", JSON.stringify(content));
-                      }}
-                        href="/chatbot"
-                      >
-                        Continue editing
-                      </VuiButton>
-                      <VuiButton color="info" onClick={handleAddNote} href="/notes">
-                        Save
-                      </VuiButton>
-                      <VuiButton color="dark" onClick={() =>
-                      {
-                        useContent(null)
-                        setPrompt(null)
-                      }}>
-                        Cancel
-                      </VuiButton>
-                    </VuiBox>
+                <VuiBox>
+                  <VuiTypography opacity={0.5}>
+                    {url + `: ` + content[0].slice(0, 200) + `...`}
+                  </VuiTypography>
+                  <DocumentGenerator document={content} />
+                  <VuiBox display="flex" gap={3} justifyContent="flex-end" m={3}>
+                    <VuiButton color="info" onClick={() => {
+                      //store.updateContent(content)
+                      localStorage.setItem("content", JSON.stringify(content));
+                    }}
+                      href="/chatbot"
+                    >
+                      Continue editing
+                    </VuiButton>
+                    <VuiButton color="info" onClick={handleAddNote} href="/notes">
+                      Save
+                    </VuiButton>
+                    <VuiButton color="dark" onClick={() => {
+                      useContent(null)
+                      setPrompt(null)
+                    }}>
+                      Cancel
+                    </VuiButton>
                   </VuiBox>
+                </VuiBox>
               ) : (
                 <VuiBox
                   display="flex"
@@ -175,19 +153,19 @@ const testDataAPI = '[["AI is used to show intelligence in activities such as sp
                   flexDirection="column"
                   gap={3}
                   px="25%">
-                  <form style={{width: "100%", textAlign:"center"}}>
+                  <form style={{ width: "100%", textAlign: "center" }}>
                     <label>OpenAI API Key</label>
-                    <VuiInput type="text" placeholder="Enter OpenAI API Key" onChange={e => setKey(e.target.value)} style={{marginBottom: "1rem"}}/>
+                    <VuiInput type="text" placeholder="Enter OpenAI API Key" onChange={e => setKey(e.target.value)} style={{ marginBottom: "1rem" }} />
                     <label>Wikipedia URL</label>
-                    <VuiInput type="url" placeholder="Enter a Wikipedia URL here" value={url} style={{marginBottom: "3rem"}} onChange={e => setUrl(e.target.value)}/>
-                    <VuiButton variant="contained" color="info" style={{height: "1rem", width:"50%"}} mt={3} onClick={handleSubmit}>
-                    <BsStickies size="20px" color="inherit" />
-                    <VuiTypography variant="lg" color="light" mx={1}>
-                      Upload New Link
-                      {/* <input type="file" id="file-upload" onChange={handleFileChange} hidden />
+                    <VuiInput type="url" placeholder="Enter a Wikipedia URL here" value={url} style={{ marginBottom: "3rem" }} onChange={e => setUrl(e.target.value)} />
+                    <VuiButton variant="contained" color="info" style={{ height: "1rem", width: "50%" }} mt={3} onClick={handleSubmit}>
+                      <BsStickies size="20px" color="inherit" />
+                      <VuiTypography variant="lg" color="light" mx={1}>
+                        Upload New Link
+                        {/* <input type="file" id="file-upload" onChange={handleFileChange} hidden />
                       <label for="file-upload">Upload New File...</label> */}
-                    </VuiTypography>
-                  </VuiButton>
+                      </VuiTypography>
+                    </VuiButton>
                   </form>
                   <VuiButton variant="contained" color="info" style={{ width: "50%", height: "6%" }}
                     onClick={() => useContent(testData)}>

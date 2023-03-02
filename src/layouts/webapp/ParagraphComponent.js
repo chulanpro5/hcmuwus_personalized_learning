@@ -5,7 +5,6 @@ import VuiTypography from 'components/VuiTypography';
 import { useState, useEffect } from 'react';
 import { PopupComments } from "./PopupComments";
 
-
 export const ParagraphComponent = (props) => {
     const [pColor, setPColor] = useState('#8dadf7');
 
@@ -16,7 +15,6 @@ export const ParagraphComponent = (props) => {
             bgColor="light"
             borderRadius={10}
             variant="button"
-            // onClick={() => console.log("Clicked")}
             sx={{
                 '&:hover': {
                     backgroundColor: pColor,

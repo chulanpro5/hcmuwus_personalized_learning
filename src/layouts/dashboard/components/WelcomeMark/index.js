@@ -16,7 +16,8 @@ const WelcomeMark = () => {
       py: "32px",
       backgroundColor: "#66C4E8",
       backgroundSize: "cover",
-      backgroundPosition: "50%"
+      backgroundPosition: "50%",
+      
     })}>
       <VuiBox height="100%" display="flex" flexDirection="column" justifyContent="space-between">
         <Grid container direction="row" columns={16} width={1000}>
