@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Vision UI Free React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/vision-ui-free-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-* Licensed under MIT (https://github.com/creativetimofficial/vision-ui-free-react/blob/master LICENSE.md)
-
-* Design and Coded by Simmmple & Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 // @mui material components
 import Grid from "@mui/material/Grid";
 
@@ -32,19 +14,20 @@ import { useState, useEffect, ChangeEvent } from "react"
 import VuiButton from "components/VuiButton";
 import VuiInput from "components/VuiInput";
 import { BsArrowRepeat, BsPencil, BsStickies } from "react-icons/bs";
-import { MdFolder } from 'react-icons/md';
 import { DocumentGenerator } from "./DocumentGenerator";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 
-import store from "stores/ContentStore";
 import NotesStore from "stores/NotesStore";
 
 import { Configuration, OpenAIApi } from "openai";
 import ContentStore from "stores/ContentStore";
-import { SideBar } from "./SideBar";
 import {parse, stringify, toJSON, fromJSON} from 'flatted';
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import { SideBar } from "./SideBar.js";
+
+
+import { FormControl, FormLabel } from "@mui/material";
 
 
 const testData = [[`MobX is an open source state management tool. When creating a web application, developers often seek an effective way of managing state within their applications. One solution is to use a unidirectional data flow pattern named Flux, introduced by the React team, and later implemented in a package called React-Redux, which made the use of the Flux pattern even easier`,
@@ -56,8 +39,15 @@ const testData = [[`MobX is an open source state management tool. When creating 
   `Anything (not just a value) that is derived from the application state without further interaction is referred to as a derivation. Derivations will listen to any particular state and then perform some computation to produce a distinct value from that state. A derivation can return any data type, including objects. In MobX, the two types of derivations are reactions and computed values`]]
 const testDataAPI = '[["AI is used to show intelligence in activities such as speech recognition, computer vision, and language translation","2nd sentence", "3rd sentence"], ["Examples of AI applications include web search engines (Google Search), recommendation systems (YouTube, Amazon, Netflix), understanding human speech (Siri, Alexa), self-driving cars (Waymo), generative or creative tools (ChatGPT, AI art), automated decision-making and strategic game systems (chess, Go)"], ["AI is used in a wide range of topics and activities"]]'
 
-const folderData = [{ name: 'Computer Hardware', books: ['Book 1', 'Book 2'] }, { name: 'Programming', books: ['Book 1', 'Book 2'] }, { name: 'Mathematics', books: ['Book 1', 'Book 2'] },
-{ name: 'Novel', books: ['Book 3.1', 'Book 3'] }, { name: 'Marvel', books: ['Book 4', 'Book 6'] }, { name: 'Sciences', books: ['Book 1.1', 'Book 2.2'] }, { name: 'Literature', books: ['Book 1.2', 'Book 2.2'] }, { name: 'History', books: ['Book 1.2', 'Book 2.1'] }]
+const folderData = [{ name: 'Computer Hardware', books: ['Book 1', 'Book 2'] },
+{ name: 'Programming', books: ['Book 1', 'Book 2'] },
+{ name: 'Mathematics', books: ['Book 1', 'Book 2'] },
+{ name: 'Novel', books: ['Book 3.1', 'Book 3'] },
+{ name: 'Marvel', books: ['Book 4', 'Book 6'] },
+{ name: 'Sciences', books: ['Book 1.1', 'Book 2.2'] },
+{ name: 'Literature', books: ['Book 1.2', 'Book 2.2'] },
+{ name: 'History', books: ['Book 1.2', 'Book 2.1'] }];
+
 function Webapp() {
   //const store = new ContentStore();
   const [url, setUrl] = useState("https://en.wikipedia.org/wiki/GPT-3")
@@ -94,12 +84,13 @@ function Webapp() {
         apiKey: key
       }
     })
-    .then(res => {
-      useContent(JSON.parse(res.data.payload)) 
-      ContentStore.fetchData(JSON.parse(res.data.payload))})
-    .catch(err => console.log(err))
-    
-    
+      .then(res => {
+        useContent(JSON.parse(res.data.payload))
+        ContentStore.fetchData(JSON.parse(res.data.payload))
+      })
+      .catch(err => console.log(err))
+
+
     setOpenai(new OpenAIApi(new Configuration({ apiKey: key })))
   }
 
@@ -114,44 +105,33 @@ function Webapp() {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
+      {/* <DashboardNavbar /> */}
       <VuiBox py={3} height={810} marginBottom={5}>
         <Grid container={true} spacing="3px" height="100%" display="flex" justifyContent="space-between">
           <SideBar folders={folderData} />
-          <Grid item xs={12} lg={10}>
+          <Grid item xs={12} lg={10} maxHeight='47.5rem'>
             <VuiBox
               p={3}
               height="100%"
               bgColor="light"
               borderRadius={"lg"}>
               {content !== null ? (
-                  <VuiBox>
-                    <VuiTypography opacity={0.5}>
-                      {url + `: ` + content[0][0].slice(0, 200) + `...`}
-                    </VuiTypography>
-                    <DocumentGenerator document={ContentStore.getContent()} />
-                    <VuiBox display="flex" gap={3} justifyContent="flex-end" m={3}>
-                      <VuiButton color="info" onClick={() =>
-                      {
-                        //store.updateContent(content)
-                        localStorage.setItem("content", JSON.stringify(content));
-                      }}
-                        href="/chatbot"
-                      >
-                        Continue editing
-                      </VuiButton>
-                      <VuiButton color="info" onClick={() => handleAddNote}>
-                        Save
-                      </VuiButton>
-                      <VuiButton color="dark" onClick={() =>
-                      {
-                        useContent(null)
-                        setPrompt(null)
-                      }}>
-                        Cancel
-                      </VuiButton>
-                    </VuiBox>
+                <VuiBox>
+                  <VuiTypography opacity={0.5}>
+                    {url + `: ` + content[0].slice(0, 200) + `...`}
+                  </VuiTypography>
+                  <DocumentGenerator document={ContentStore.getContent()} />
+                  <VuiBox display="flex" gap={3} justifyContent="flex-end" m={3}>
+                    <VuiButton color="info" onClick={handleAddNote} href="/notes">
+                      Save
+                    </VuiButton>
+                    <VuiButton color="dark" onClick={() => {
+                      useContent(null)
+                    }}>
+                      Cancel
+                    </VuiButton>
                   </VuiBox>
+                </VuiBox>
               ) : (
                 <VuiBox
                   display="flex"
@@ -160,39 +140,45 @@ function Webapp() {
                   height="100%"
                   flexDirection="column"
                   gap={3}
-                  px="25%">
-                  <form style={{ width: "100%", textAlign: "center" }}>
-                    <label>OpenAI API Key</label>
-                    <VuiInput type="text" placeholder="Enter OpenAI API Key" onChange={e => setKey(e.target.value)} style={{ marginBottom: "1rem" }} />
-                    <label>Wikipedia URL</label>
-                    <VuiInput type="url" placeholder="Enter a Wikipedia URL here" value={url} style={{ marginBottom: "3rem" }} onChange={e => setUrl(e.target.value)} />
-                    <VuiButton variant="contained" color="info" style={{ height: "1rem", width: "50%" }} mt={3} onClick={handleSubmit}>
+                  px="25%"
+                  sx={{backgroundColor: 'lightgrey', borderRadius: '1.5rem'}}>
+                  <FormControl style={{ width: "100%", textAlign: "center" }}>
+                    <FormLabel color='info' for="openai-api-key" sx={{ fontSize: "1.5rem", fontWeight: 'bold', margin: '0.8rem'}}>
+                      OpenAI API Key
+                    </FormLabel >
+                    <VuiInput type="text" id="openai-api-key" placeholder="Enter OpenAI API Key" onChange={e => setKey(e.target.value)} sx={{ fontSize: 20, height: '1rem'}} />
+                    <FormLabel for="wiki-url" color='info' sx={{ fontSize: "1.5rem", fontWeight: 'bold', margin: '0.8rem'}}>
+                      Wikipedia URL
+                    </FormLabel >
+                    <VuiInput type="url" id="wiki-url" placeholder="Enter a Wikipedia URL here" value={url} sx={{ fontSize: 20, height: '1rem'}} onChange={e => setUrl(e.target.value)} />
+                    <VuiButton variant="contained" color="info" sx={{ '&:hover': {
+  backgroundColor: 'green'                     }, height: "3.2rem", width: "50%", marginLeft: "7.4rem", marginTop: '3rem', borderRadius: '1.5rem'}} onClick={handleSubmit}>
                       <BsStickies size="20px" color="inherit" />
-                      <VuiTypography variant="lg" color="light" mx={1}>
+                      <VuiTypography variant="lg" color="light" mx='0.5rem'>
                         Upload New Link
-                        {/* <input type="file" id="file-upload" onChange={handleFileChange} hidden />
-                      <label for="file-upload">Upload New File...</label> */}
                       </VuiTypography>
                     </VuiButton>
-                  </form>
-                  <VuiButton variant="contained" color="info" style={{ width: "50%", height: "6%" }}
+                  </FormControl>
+                  <VuiButton variant="contained" color="info" sx={{ '&:hover': { backgroundColor: 'green'
+                    }, width: "50%", height: "3.2rem", borderRadius: "2rem", padding: '1rem' }}
                     onClick={() => {
                       useContent(testData)
                       ContentStore.fetchData(testData)
                     }}>
                     <BsPencil size="20px" color="inherit" />
-                    <VuiTypography variant="lg" color="light" mx={1}>
+                    <VuiTypography variant="lg" color="light" m='1rem'>
                       Testing
                     </VuiTypography>
                   </VuiButton>
 
-                  <VuiButton variant="contained" color="info" style={{ width: "50%", height: "6%" }}
+                  {/* <VuiButton variant="contained" color="info" sx={{ '&:hover': { backgroundColor: 'green'
+                    }, width: "50%", height: "3.2rem", borderRadius: "2rem", padding: '1rem' }}
                     href="/dashboard">
                     <BsArrowRepeat size="20px" color="inherit" />
-                    <VuiTypography variant="lg" color="light" mx={1}>
+                    <VuiTypography variant="lg" color="light" m='1rem'>
                       Resume Learning
                     </VuiTypography>
-                  </VuiButton>
+                  </VuiButton> */}
                 </VuiBox>
               )}
             </VuiBox>
