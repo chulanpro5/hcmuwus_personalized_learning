@@ -12,14 +12,7 @@ export const ParagraphComponent = (props) => {
         <VuiBox
             height="auto"
             bgColor="light"
-            borderRadius={10}
             sx={{
-                marginBottom: '1rem',
-                marginTop: '1rem',
-                marginLeft: 0,
-                marginRight: '1.5rem',
-                paddingTop: '1rem',
-                paddingLeft: '0.4rem'
             }}
         >   <VuiTypography>
                 {
@@ -30,8 +23,8 @@ export const ParagraphComponent = (props) => {
                         }} 
                             sx={{
                                 '&:hover': {
-                                    backgroundColor: '#8dadf7',
-                                    borderRadius: 3
+                                    backgroundColor: '#FDE584',
+                                    borderRadius: 0
                                 }
                             }}
                         >

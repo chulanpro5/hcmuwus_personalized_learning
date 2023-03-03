@@ -10,6 +10,7 @@ import { IoIosSend } from 'react-icons/io';
 import axios from 'axios';
 import ContentStore from "stores/ContentStore";
 import LoadingSpin from "react-loading-spin";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 export const PopupComments = (props) => {
@@ -65,11 +66,11 @@ export const PopupComments = (props) => {
             nested
         >
             {close => (
-                <VuiBox py={3} marginBottom={5} bgColor="#66C4E8" sx={{ zIndex: 8 }} p={2} width={500} borderRadius={20}>
+                <VuiBox py={3} marginBottom={5} bgColor="#fff" sx={{ zIndex: 8 }} p={2} width={500} borderRadius={20}>
                     <VuiBox width="100%" display="flex" justifyContent="flex-end" alignItems="center" gap={1}>
                         {explain && <LoadingSpin size="3rem"/>}
-                        <VuiButton color="error" onClick={() => close()} disabled={explain} mx={1}>
-                            Close
+                        <VuiButton color="error" borderRadius="1000px" onClick={() => close()} disabled={explain} mx={1}>
+                            <CloseIcon/>
                         </VuiButton>
                     </VuiBox>
                     <VuiBox sx={{ overflowX: "hidden"}} display="flex" flexDirection="column" gap={2}>

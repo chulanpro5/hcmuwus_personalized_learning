@@ -15,6 +15,7 @@ import VuiButton from "components/VuiButton";
 import VuiInput from "components/VuiInput";
 import { BsPencil, BsStickies } from "react-icons/bs";
 import { DocumentGenerator } from "./DocumentGenerator";
+import PopUp from "./components/popUpBox";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 
@@ -96,14 +97,17 @@ function Webapp() {
             <VuiBox
               p={3}
               height="100%"
-              bgColor="light"
               borderRadius={"lg"}>
               {content ? (
                 <VuiBox height="34.5rem">
-                  <VuiTypography opacity={0.5} p='0.4rem' mr='1rem'>
-                    {url + `: ` + content[0][0].slice(0, 50) + `...`}
+                  <VuiTypography opacity={0.5} pb='2rem'  maxHeight="1rem">
+                    {url + `: ` + content[0][0].slice(0, 75) + `...`}
                   </VuiTypography>
+
+                  <VuiBox borderRadius="1.5rem" border="1px solid" height="100%" padding="2rem" pr="0rem" sx={{ backgroundColor: 'white'}}>
                   <DocumentGenerator document={ContentStore.getContent()} />
+                  </VuiBox>
+
                   <VuiBox display="flex" gap='3rem' justifyContent="flex-end" m='1rem'>
                     
                     <VuiButton color="info" onClick={handleAddNote} href="/notes" sx={{ width: '8rem', '&:hover': { backgroundColor: 'green'} }}>
