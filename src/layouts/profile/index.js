@@ -18,13 +18,13 @@ function Overview() {
   const store = new ChartStore();
   const newData = [23, 23, 23, 21, 12, 12, 14];
   const newDay = [
-    ['Monday', '12-07-2022'],
-    ['Tuesday', '13-07-2023'],
-    ['Wednesday', '14-07-2023'],
-    ['Thursday', '15-07-2023'],
-    ['Friday', '16-07-2022'],
-    ['Saturday', '17-07-2023'],
-    ['Sunday', '18-07-2023'],
+    ['MON', ''],
+    ['TUE', ''],
+    ['WED', ''],
+    ['THU', ''],
+    ['FRI', ''],
+    ['SAT', ''],
+    ['SUN', ''],
   ];
 
 
@@ -34,7 +34,7 @@ function Overview() {
   return (
     <DashboardLayout>
       <VuiBox>
-        <Grid container marginLeft={6} columns={24} sx={({ breakpoints }) => ({
+        <Grid container columns={24} sx={({ breakpoints }) => ({
           [breakpoints.only('sm')]: {
             direction: 'column',
           },

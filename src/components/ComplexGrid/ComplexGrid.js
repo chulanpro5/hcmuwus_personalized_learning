@@ -65,12 +65,12 @@ export default function ComplexGrid(props) {
       }}
     >
       <Button>
-        <Grid container spacing={2} justifyContent='center' alignItems={'center'}>
+        <Grid container spacing={2} justifyContent='center' alignItems='center'>
           <Grid item>
-            <CircularProgressWithLabel value={props.progress} color={(props.progress === 100)? 'success': (props.progress >= 50) ? 'warning': 'error'} size={75} />
+            <CircularProgressWithLabel sx={{margin:0, padding:0}} value={props.progress} color={(props.progress === 100)? 'success': (props.progress >= 50) ? 'warning': 'error'} size={75} />
           </Grid>
           <Grid item xs>
-            <Typography gutterBottom variant="h4" component="div" align="left" color={(props.progress === 100)? 'black': (props.progress >= 50) ? "warning": 'error'}>
+            <Typography gutterBottom variant="h5" component="div" align="left" color={(props.progress === 100)? 'black': (props.progress >= 50) ? '#f6ad55': 'error'}>
               {props.title}
             </Typography>
           </Grid>

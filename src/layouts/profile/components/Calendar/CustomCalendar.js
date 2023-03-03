@@ -66,7 +66,7 @@ export const CustomCalendar = (props) => {
                         </VuiButton>
                     ))}
                     {range(daysInMonth).map(i => (
-                        <VuiButton key={i} contained color={dayObj.date() === (i + 1) ? 'orange' : (events.filter(event => event.isSame(dayObjOf1.subtract(weekDayOf1 - i, "day"))).length !== 0) ? 'error' : 'light'} sx={{
+                        <VuiButton key={i} contained color={dayObj.date() === (i + 1) ? 'warning' : (events.filter(event => event.isSame(dayObjOf1.subtract(weekDayOf1 - i, "day"))).length !== 0) ? 'error' : 'light'} sx={{
                             margin: 0, color: 'black', width: 10, padding: 1, height: 7, '&:hover': {
                                 backgroundColor: 'lightgreen'
                             }

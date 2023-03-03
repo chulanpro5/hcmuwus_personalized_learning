@@ -73,6 +73,7 @@ export default {
 
   orange: {
     main: "#f6ad55",
+    state: "#f6ad55",
     focus: "#f6ad55",
   },
 
@@ -136,15 +137,11 @@ export default {
 
   gradients: {
     navbar: {
-      deg: "123.64deg",
-      main: "rgba(255, 255, 255, 0) -22.38%",
-      state: "rgba(255, 255, 255, 0.039) 70.38%",
+      main: "transparent",
     },
 
     sidenav: {
-      deg: "127.09",
-      main: "rgba(6, 11, 40, 0.94) 19.41%",
-      state: "rgba(10, 14, 35, 0.49) 76.65%",
+      main: "transparent",
     },
 
     borderLight: {
@@ -179,9 +176,7 @@ export default {
     },
 
     card: {
-      deg: "127.09",
-      main: "rgba(6, 11, 40, 0.94) 19.41%",
-      state: "rgba(10, 14, 35, 0.49) 76.65%",
+      main: "#66C4E8",
     },
 
     menu: {
