@@ -103,7 +103,7 @@ function Webapp() {
                     {url + `: ` + content[0][0].slice(0, 50) + `...`}
                   </VuiTypography>
 
-                  <VuiBox borderRadius="1.5rem" border="1px solid" height="100%" padding="2rem" pr="0rem" sx={{ backgroundColor: 'white'}}>
+                  <VuiBox borderRadius="1.5rem" border="1px solid" height="100%" padding="2rem" pr="0rem" sx={{ backgroundColor: '#fff'}}>
                   <DocumentGenerator document={ContentStore.getContent()} />
                   </VuiBox>
 
