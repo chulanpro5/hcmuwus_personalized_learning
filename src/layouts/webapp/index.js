@@ -136,9 +136,9 @@ function Webapp() {
                     </FormLabel >
                     <VuiInput type="text" id="openai-api-key" placeholder="Enter OpenAI API Key" onChange={e => setKey(e.target.value)} sx={{ fontSize: 20, height: '1rem' }} />
                     <FormLabel for="wiki-url" color='info' sx={{ fontSize: "1.5rem", fontWeight: 'bold', margin: '0.8rem' }}>
-                      Wikipedia URL
+                      Website URL
                     </FormLabel >
-                    <VuiInput type="url" id="wiki-url" placeholder="Enter a Wikipedia URL here" value={url} sx={{ fontSize: 20, height: '1rem' }} onChange={e => setUrl(e.target.value)} />
+                    <VuiInput type="url" id="wiki-url" placeholder="Enter a Website URL here" value={url} sx={{ fontSize: 20, height: '1rem' }} onChange={e => setUrl(e.target.value)} />
                     <VuiButton variant="contained" color="info" sx={{
                       '&:hover': {
                         backgroundColor: 'green'
