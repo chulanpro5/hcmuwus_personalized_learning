@@ -24,16 +24,16 @@
 export default {
   // Vision UI Colors
   background: {
-    default: "#f8f9fa",
+    default: "#E8F0F2",
   },
 
   sidenav: {
-    button: "#1a1f37",
+    button: "#FDE584",
   },
 
   text: {
     main: "#a0aec0",
-    focus: "#ffffff",
+    focus: "#ff0000",
   },
 
   transparent: {

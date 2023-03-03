@@ -31,7 +31,7 @@ function CircularProgressWithLabel(props) {
           justifyContent: 'center',
         }}
       >
-        <Typography variant="caption" component="div" color="text.secondary" fontWeight="bold" fontSize={20}>
+        <Typography variant="caption" component="div" color="text.secondary" fontWeight="bold" fontSize={15}>
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>
@@ -54,12 +54,12 @@ export default function ComplexGrid(props) {
         marginLeft: 0,
         width: 430,
         flexGrow: 1,
-        borderRadius: 10,
+        borderRadius: 7,
         padding: 1,
         backgroundColor: (props.progress === 100)? 'lightgreen': (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         '&:hover': {
-          backgroundColor:  'lightgray',
+          backgroundColor:  'light',
           opacity:[0.7,0.5,0.7]
         }
       }}
@@ -67,11 +67,11 @@ export default function ComplexGrid(props) {
       <Button>
         <Grid container spacing={2} justifyContent='center' alignItems={'center'}>
           <Grid item>
-            <CircularProgressWithLabel value={props.progress} color={(props.progress === 100)? 'success': (props.progress >= 50) ? 'orange': 'error'} size={100} />
+            <CircularProgressWithLabel value={props.progress} color={(props.progress === 100)? 'success': (props.progress >= 50) ? 'warning': 'error'} size={75} />
           </Grid>
           <Grid item xs>
-            <Typography gutterBottom variant="lg" component="div">
-              <p style={{ fontSize: 20, color: (props.progress === 100)? 'black': (props.progress >= 50)? 'orange': 'red', fontWeight: 'bold' }}>{props.title}</p>
+            <Typography gutterBottom variant="h4" component="div" align="left" color={(props.progress === 100)? 'black': (props.progress >= 50) ? "warning": 'error'}>
+              {props.title}
             </Typography>
           </Grid>
         </Grid>

@@ -1,5 +1,4 @@
-import { ListItem } from '@mui/material';
-import { colorChannel } from '@mui/system';
+
 import VuiBox from 'components/VuiBox';
 import VuiTypography from 'components/VuiTypography';
 import { useState, useEffect } from 'react';
@@ -13,22 +12,15 @@ export const ParagraphComponent = (props) => {
             height="auto"
             bgColor="light"
             borderRadius={10}
-            // onClick={() => console.log("Clicked")}
             sx={{
-                '&:hover': {
-                    backgroundColor: pColor,
-                },
-                marginBottom: 2,
-                marginTop: 2,
+                marginBottom: '1rem',
+                marginTop: '1rem',
                 marginLeft: 0,
-                marginRight: 3,
-                padding: 1
+                marginRight: '1.5rem',
+                paddingTop: '1rem',
+                paddingLeft: '0.4rem'
             }}
-            // onMouseOver={(event) => {
-            //     setPColor('#8dadf7');
-            //     event.stopPropagation();
-            // }}
-        >   <VuiTypography >
+        >   <VuiTypography>
                 {
                     props.paragraph.map(sentence => (
                         <PopupComments text={sentence} index={props.index} triggerButton={(<VuiTypography display="inline" onMouseOver={(event) => {
@@ -38,10 +30,10 @@ export const ParagraphComponent = (props) => {
                             sx={{
                                 '&:hover': {
                                     backgroundColor: '#8dadf7',
-                                    borderRadius: 5
+                                    borderRadius: 3
                                 }
                             }}
-                            >
+                        >
                             {sentence + ". "}
                         </VuiTypography>)} />))
                 }

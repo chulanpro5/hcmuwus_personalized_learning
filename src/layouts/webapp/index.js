@@ -95,11 +95,12 @@ function Webapp() {
               borderRadius={"lg"}>
               {content !== null ? (
                 <VuiBox height="34.5rem">
-                  <VuiTypography opacity={0.5} p='0.4rem'>
+                  <VuiTypography opacity={0.5} p='0.4rem' mr='1rem'>
                     {url + `: ` + content[0][0].slice(0, 200) + `...`}
                   </VuiTypography>
                   <DocumentGenerator document={ContentStore.getContent()} />
                   <VuiBox display="flex" gap='3rem' justifyContent="flex-end" m='1rem'>
+                    
                     <VuiButton color="info" onClick={handleAddNote} href="/notes" sx={{ width: '8rem', '&:hover': { backgroundColor: 'green'} }}>
                       Save
                     </VuiButton>
@@ -156,14 +157,6 @@ function Webapp() {
                     </VuiTypography>
                   </VuiButton>
 
-                  {/* <VuiButton variant="contained" color="info" sx={{ '&:hover': { backgroundColor: 'green'
-                    }, width: "50%", height: "3.2rem", borderRadius: "2rem", padding: '1rem' }}
-                    href="/dashboard">
-                    <BsArrowRepeat size="20px" color="inherit" />
-                    <VuiTypography variant="lg" color="light" m='1rem'>
-                      Resume Learning
-                    </VuiTypography>
-                  </VuiButton> */}
                 </VuiBox>
               )}
             </VuiBox>

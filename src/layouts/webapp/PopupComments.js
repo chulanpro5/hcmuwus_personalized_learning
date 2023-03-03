@@ -10,8 +10,8 @@ import { IoIosSend } from 'react-icons/io';
 import axios from 'axios';
 import ContentStore from "stores/ContentStore";
 
-export const PopupComments = (props) =>
-{
+
+export const PopupComments = (props) => {
     const colors = ["#E6F2F7", "#007EAE"];
     //const [commands, setCommands] = useState(["Explain more about this", "Show me the references"]);
     const [reference, setReference] = useState(null);
@@ -19,6 +19,7 @@ export const PopupComments = (props) =>
     function delay(time)
     {
         return new Promise(resolve => setTimeout(resolve, time));
+    }
     }
 
     const handleExplain = () =>
@@ -66,17 +67,14 @@ export const PopupComments = (props) =>
                         setReference(null)
                     }} bgColor="#E6F2F7" sx={{
                         color: "black", '&:hover': {
-                            backgroundColor: 'red',
+                            backgroundColor: 'darkred',
                         },
-                        pt: 0,
-                        pb: 0,
-                        paddingLeft: 5,
-                        marginLeft: 41.5,
-                        marginBottom: 2,
-                        marginTop: 0.5,
+                        marginLeft: '20rem',
+                        marginTop: '0.5rem',
+                        padding: '0.1rem',
                         borderRadius: 20,
                     }} borderRadius={15} end width="30%">
-                        <VuiTypography padding={1} variant="lg">Close</VuiTypography>
+                        <VuiTypography padding='3rem' variant="lg">Close</VuiTypography>
                     </VuiBox>
                     <VuiTypography variant="xs" mx={2}>
                         {props.text.slice(0, 40) + "..."}
@@ -122,16 +120,6 @@ export const PopupComments = (props) =>
                             {reference}
                         </VuiTypography>
                     </VuiBox>
-                    {/* <VuiBox margin={2} mt={5} height="35%" >
-                        <TextField borderRadius={20} sx={{ width: "80%", borderRadius: 30 , marginBottom: 5}} fullWidth={true} onChange={(e) => setFeedback(e.target.value)}></TextField>
-                        <VuiButton sx={{
-                            borderRadius: 20, marginLeft: 0.5, width: "19%", height: 20, backgroundColor: "white"
-                        }}
-                            onClick={handleFeedback}
-                        >
-                            <VuiTypography variant="lg">Send</VuiTypography>
-                        </VuiButton>
-                    </VuiBox> */}
                 </VuiBox>
             )}
         </Popup>

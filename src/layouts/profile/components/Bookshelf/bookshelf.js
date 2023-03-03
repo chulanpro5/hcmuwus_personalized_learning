@@ -49,7 +49,7 @@ function MyBookshelf() {
     books.forEach(book => store.addBook(book));
     return (
         <Paper sx={{ width: 500, height: 780, borderRadius: 10, marginTop: 5 }}>
-            <VuiTypography color="black" variant="lg" sx={{ fontSize: 30, fontWeight:"bold", marginLeft: 13, marginBottom: 1 }} overflowX="hidden">
+            <VuiTypography color="dark" align="left" sx={{marginLeft: 4, marginBottom: 1, marginTop: 4,  fontWeight:"bold", overflowX: "hidden"}}  variant="h3" >
                 Completion Progress
             </VuiTypography>
             <Grid sx={{ width: 500, height: 690, padding: 4, marginTop: 0, paddingTop: 0, overflowY: "scroll", overflowX: "hidden" }} >
