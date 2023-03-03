@@ -20,14 +20,14 @@ function collapseItem(theme, ownerState) {
   const { palette, transitions, breakpoints, boxShadows, borders, functions } = theme;
   const { active, transparentSidenav } = ownerState;
 
-  const { transparent, white, sidenav } = palette;
+  const { transparent, white, black, sidenav } = palette;
   const { xxl } = boxShadows;
   const { borderRadius } = borders;
   const { pxToRem } = functions;
 
   return {
     background: active ? sidenav.button : transparent.main,
-    color: white.main,
+    color: black.main,
     display: "flex",
     alignItems: "center",
     width: "100%",
@@ -107,7 +107,7 @@ function collapseIconBox(theme, ownerState) {
 }
 
 const collapseIcon = ({ palette: { white, gradients } }, { active }) => ({
-  color: active ? white.main : gradients.dark.state,
+  color: active ? white.main : white.main,
 });
 
 function collapseText(theme, ownerState) {

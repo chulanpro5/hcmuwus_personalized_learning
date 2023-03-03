@@ -47,7 +47,7 @@ function Landing() {
               </VuiTypography>
               <hr marginTop="10px" height="2px" borderWidth="0" color="black" backgroundColor="gray" width="50%"></hr>
 
-              <VuiTypography sx={{ marginTop: 7, textAlign: "justify" }} color="light" variant="h5" fontWeight="regular" >
+              <VuiTypography sx={{ marginTop: 7, textAlign: "justify" }} color="dark" variant="h5" fontWeight="regular" >
                 Personalized learning is an increasingly popular and important educational approach in modern education. This concept refers to customizing the learning process for each student based on their needs, interests, abilities, and learning styles. The goal of personalized learning is to enhance the effectiveness of learning by tailoring the content to fit each individual.
               </VuiTypography>
               <VuiButton sx={{
