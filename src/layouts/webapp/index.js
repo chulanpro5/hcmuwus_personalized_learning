@@ -106,6 +106,7 @@ function Webapp() {
                     </VuiButton>
                     <VuiButton color="info" sx={{ width: '8rem', '&:hover': { backgroundColor: 'darkred'}}} onClick={() => {
                       useContent(null)
+                      setLoading(false)
                     }}>
                       Cancel
                     </VuiButton>
@@ -135,7 +136,7 @@ function Webapp() {
                       '&:hover': {
                         backgroundColor: 'green'
                       }, height: "3.2rem", width: "50%", marginLeft: "7.4rem", marginTop: '3rem', borderRadius: '1.5rem'
-                    }} onClick={handleSubmit}>
+                    }} onClick={handleSubmit} disabled={loading}>
                       <BsStickies size="20px" color="inherit" />
                       <VuiTypography variant="lg" color="light" mx='0.5rem'>
                         Upload New Link
@@ -150,7 +151,7 @@ function Webapp() {
                     onClick={() => {
                       useContent(testData)
                       ContentStore.fetchData(testData)
-                    }}>
+                    }} disabled={loading}>
                     <BsPencil size="20px" color="inherit" />
                     <VuiTypography variant="lg" color="light" m='1rem'>
                       Testing

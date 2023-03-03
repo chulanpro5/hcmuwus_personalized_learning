@@ -15,11 +15,11 @@ export const PopupComments = (props) => {
     const colors = ["#E6F2F7", "#007EAE"];
     //const [commands, setCommands] = useState(["Explain more about this", "Show me the references"]);
     const [reference, setReference] = useState(null);
+    const [explaining, setExplaining] = useState(false);
 
     function delay(time)
     {
         return new Promise(resolve => setTimeout(resolve, time));
-    }
     }
 
     const handleExplain = () =>
@@ -60,26 +60,16 @@ export const PopupComments = (props) => {
             nested
         >
             {close => (
-                <VuiBox py={3} marginBottom={5} bgColor="#66C4E8" sx={{ zIndex: 8 }} paddingTop={1} width={500} borderRadius={20}>
-                    <VuiBox variant="button" onClick={() =>
-                    {
-                        close()
-                        setReference(null)
-                    }} bgColor="#E6F2F7" sx={{
-                        color: "black", '&:hover': {
-                            backgroundColor: 'darkred',
-                        },
-                        marginLeft: '20rem',
-                        marginTop: '0.5rem',
-                        padding: '0.1rem',
-                        borderRadius: 20,
-                    }} borderRadius={15} end width="30%">
-                        <VuiTypography padding='3rem' variant="lg">Close</VuiTypography>
+                <VuiBox py={3} marginBottom={5} bgColor="#66C4E8" sx={{ zIndex: 8 }} p={2} width={500} borderRadius={20}>
+                    <VuiBox width="100%" textAlign="right">
+                        <VuiButton color="error" onClick={() => close()}>
+                            Close
+                        </VuiButton>
                     </VuiBox>
-                    <VuiTypography variant="xs" mx={2}>
-                        {props.text.slice(0, 40) + "..."}
-                    </VuiTypography>
-                    <VuiBox sx={{ overflowX: "hidden", margin: 1, padding: 1 }} display="flex" flexDirection="column" gap={2}>
+                    <VuiBox sx={{ overflowX: "hidden"}} display="flex" flexDirection="column" gap={2}>
+                        <VuiTypography variant="overline" m={2}>
+                            {props.text}
+                        </VuiTypography>
                         <VuiButton color="info" width="100%" onClick={handleExplain}>
                             Explain more about this
                         </VuiButton>

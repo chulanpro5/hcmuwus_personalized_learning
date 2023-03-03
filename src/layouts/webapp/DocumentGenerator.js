@@ -3,7 +3,7 @@ import { ParagraphComponent } from "./ParagraphComponent";
 import { observable } from "mobx";
 import { observer } from "mobx-react";
 
-export const DocumentGenerator = observer((props) => {
+export const DocumentGenerator = (props) => {
     return (
         <Grid sx={{ overflowY: "scroll", overflowX: "hidden", height: "100%" }} >
             <List>
@@ -13,4 +13,4 @@ export const DocumentGenerator = observer((props) => {
             </List>
         </Grid>
     );
-})
+}
