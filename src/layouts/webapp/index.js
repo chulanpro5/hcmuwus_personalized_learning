@@ -42,6 +42,7 @@ import NotesStore from "stores/NotesStore";
 
 import { Configuration, OpenAIApi } from "openai";
 import ContentStore from "stores/ContentStore";
+import { SideBar } from "./SideBar";
 
 const testData = [[`MobX is an open source state management tool. When creating a web application, developers often seek an effective way of managing state within their applications. One solution is to use a unidirectional data flow pattern named Flux, introduced by the React team, and later implemented in a package called React-Redux, which made the use of the Flux pattern even easier.`,
   `MobX, a simple, scalable, and standalone state management library, follows functional reactive programming (FRP) implementation and prevents inconsistent state by ensuring that all derivations are performed automatically. According to the MobX getting started page, “MobX makes state management simple again by addressing the root issue: it makes it impossible to produce an inconsistent state.”`,
@@ -123,7 +124,7 @@ function Webapp() {
               {content !== null ? (
                   <VuiBox>
                     <VuiTypography opacity={0.5}>
-                      {url + `: ` + content[0].slice(0, 200) + `...`}
+                      {url + `: ` + content[0][0].slice(0, 200) + `...`}
                     </VuiTypography>
                     <DocumentGenerator document={ContentStore.getContent()} />
                     <VuiBox display="flex" gap={3} justifyContent="flex-end" m={3}>
