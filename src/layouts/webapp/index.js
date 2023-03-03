@@ -89,21 +89,22 @@ function Webapp() {
 
   return (
     <DashboardLayout>
+      {/* <DashboardNavbar /> */}
       <VuiBox py={3} height={810} marginBottom={5}>
         <Grid container={true} spacing="3px" height="100%" display="flex" justifyContent="space-between">
+          <SideBar folders={folderData} />
           <Grid item xs={12} lg={10} maxHeight='48rem'>
             <VuiBox
               p={3}
               height="100%"
-              //bgColor="#CCEBF7"
               borderRadius={"lg"}>
               {content ? (
-                <VuiBox height="43.5rem" style={{}}>
-                  <VuiTypography opacity={0.5} pb='2rem'  maxHeight="1rem" ml='2rem'>
-                    {url + `: ` + content[0][0].slice(0, 50) + `...`}
+                <VuiBox height="34.5rem">
+                  <VuiTypography opacity={0.5} pb='2rem'  maxHeight="1rem">
+                    {url + `: ` + content[0][0].slice(0, 75) + `...`}
                   </VuiTypography>
 
-                  <VuiBox borderRadius="1.5rem" border="1px solid" height="100%" padding="2rem" pr="0rem" sx={{ backgroundColor: 'white'}}>
+                  <VuiBox borderRadius="1.5rem" border="1px solid" height="100%" padding="2rem" pr="0rem" sx={{ backgroundColor: '#fff'}}>
                   <DocumentGenerator document={ContentStore.getContent()} />
                   </VuiBox>
 
@@ -128,7 +129,7 @@ function Webapp() {
                   flexDirection="column"
                   gap={3}
                   px="25%"
-                  sx={{ borderRadius: '1.5rem' }}>
+                  sx={{ backgroundColor: 'lightgrey', borderRadius: '1.5rem' }}>
                   {loading && <LoadingSpin/>}
                   <FormControl style={{ width: "100%", textAlign: "center" }}>
                     <FormLabel color='info' for="openai-api-key" sx={{ fontSize: "1.5rem", fontWeight: 'bold', margin: '0.8rem' }}>
@@ -169,7 +170,6 @@ function Webapp() {
               )}
             </VuiBox>
           </Grid>
-          <SideBar folders={folderData} />
         </Grid>
       </VuiBox>
     </DashboardLayout >

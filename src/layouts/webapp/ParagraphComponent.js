@@ -11,7 +11,7 @@ export const ParagraphComponent = (props) => {
     return (
         <VuiBox
             height="auto"
-            bgColor="light"
+            // bgColor="light"
             sx={{
             }}
         >   <VuiTypography>
