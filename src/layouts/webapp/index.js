@@ -114,9 +114,7 @@ function Webapp() {
 
   return (
     <DashboardLayout>
-      <VuiBox>
-        <DashboardNavbar />
-      </VuiBox>
+      <DashboardNavbar />
       <VuiBox py={3} height={810} marginBottom={5}>
         <Grid container={true} spacing="3px" height="100%" display="flex" justifyContent="space-between">
           <SideBar folders={folderData} />
@@ -142,7 +140,7 @@ function Webapp() {
                       >
                         Continue editing
                       </VuiButton>
-                      <VuiButton color="info" onClick={handleAddNote} href="/notes">
+                      <VuiButton color="info" onClick={() => handleAddNote}>
                         Save
                       </VuiButton>
                       <VuiButton color="dark" onClick={() =>

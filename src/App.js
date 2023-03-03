@@ -182,7 +182,7 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Switch>
         {getRoutes(routes)}
-        <Redirect from="*" to="/landing page" />
+        <Redirect from="*" to="/" />
       </Switch>
     </ThemeProvider>
   );

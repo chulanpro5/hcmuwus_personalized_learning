@@ -9,7 +9,7 @@ class NotesStore {
     notes = [];
 
     constructor() {
-        this.notes = [];
+        makeAutoObservable(this);
     }
 
     getNotes() {
