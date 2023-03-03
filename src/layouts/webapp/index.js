@@ -20,14 +20,13 @@ import axios from "axios";
 
 import NotesStore from "stores/NotesStore";
 
-import { Configuration, OpenAIApi } from "openai";
 import ContentStore from "stores/ContentStore";
-import { parse, stringify, toJSON, fromJSON } from 'flatted';
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { SideBar } from "./SideBar.js";
 
 
 import { FormControl, FormLabel } from "@mui/material";
+import LoadingSpin from "react-loading-spin";
 
 
 const testData = [[`MobX is an open source state management tool. When creating a web application, developers often seek an effective way of managing state within their applications. One solution is to use a unidirectional data flow pattern named Flux, introduced by the React team, and later implemented in a package called React-Redux, which made the use of the Flux pattern even easier`,
@@ -54,32 +53,14 @@ function Webapp() {
   const [key, setKey] = useState("");
   const [openai, setOpenai] = useState(null);
   const [content, useContent] = useState(null);
-  const [file, setFile] = useState([]);
-
-  useEffect(() => {
-
-  }, [])
-
-  const handleFileChange = (e => {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      useContent(reader.result.split('\n'))
-      //fileContents.textContent = reader.result;
-    };
-
-    reader.readAsText(file);
-  });
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
+    setLoading(true);
     axios({
       method: 'post',
-      url: "http://localhost:4000/api/wiki_retrieve/",
-      data: {
+      url: "https://689e-113-22-113-75.ap.ngrok.io/api/wiki_retrieve/",
+      data:{
         url: url,
         apiKey: key
       }
@@ -89,9 +70,6 @@ function Webapp() {
         ContentStore.fetchData(JSON.parse(res.data.payload))
       })
       .catch(err => console.log(err))
-
-
-    setOpenai(new OpenAIApi(new Configuration({ apiKey: key })))
   }
 
   const handleAddNote = () => {
@@ -142,6 +120,7 @@ function Webapp() {
                   gap={3}
                   px="25%"
                   sx={{ backgroundColor: 'lightgrey', borderRadius: '1.5rem' }}>
+                  {loading && <LoadingSpin/>}
                   <FormControl style={{ width: "100%", textAlign: "center" }}>
                     <FormLabel color='info' for="openai-api-key" sx={{ fontSize: "1.5rem", fontWeight: 'bold', margin: '0.8rem' }}>
                       OpenAI API Key

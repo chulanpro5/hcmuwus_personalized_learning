@@ -7,8 +7,8 @@ export const DocumentGenerator = observer((props) => {
     return (
         <Grid sx={{ overflowY: "scroll", overflowX: "hidden", height: "100%" }} >
             <List>
-                {props.document.map(paragraph => 
-                    <ParagraphComponent paragraph={paragraph} />   
+                {props.document.map((paragraph, index) => 
+                    <ParagraphComponent paragraph={paragraph} index={index}/>   
                 )}
             </List>
         </Grid>

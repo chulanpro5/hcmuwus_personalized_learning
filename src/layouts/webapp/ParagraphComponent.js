@@ -30,8 +30,8 @@ export const ParagraphComponent = (props) => {
             // }}
         >   <VuiTypography >
                 {
-                    props.paragraph.map((sentence, index) => (
-                        <PopupComments text={sentence} index={index} triggerButton={(<VuiTypography display="inline" onMouseOver={(event) => {
+                    props.paragraph.map(sentence => (
+                        <PopupComments text={sentence} index={props.index} triggerButton={(<VuiTypography display="inline" onMouseOver={(event) => {
                             //event.stopPropagation();
                             setPColor('light');
                         }} 

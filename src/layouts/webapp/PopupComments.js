@@ -14,26 +14,43 @@ export const PopupComments = (props) =>
 {
     const colors = ["#E6F2F7", "#007EAE"];
     //const [commands, setCommands] = useState(["Explain more about this", "Show me the references"]);
-    const [feedback, setFeedback] = useState(false);
+    const [reference, setReference] = useState(null);
 
-    function delay(time) {
-        return new Promise(resolve => setTimeout(resolve, time));
-      }
-
-    const handleFeedback = (command) =>
+    function delay(time)
     {
-        if (command!=="Explain more about this" && command!=="Show me the references") return;
-        
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+    const handleExplain = () =>
+    {
+        //if (command!=="Explain more about this" && command!=="Show me the references") return;
+
         axios({
             method: 'post',
-            url: "http://localhost:4000/api/user_interact/",
+            url: "https://689e-113-22-113-75.ap.ngrok.io/api/user_interact/",
             data: {
                 sentence: props.text,
-                prompt: command
+                prompt: "Explain more about this"
             }
         })
             .then(res => ContentStore.updateContent(JSON.parse(res.data.payload), props.index))
             .catch(err => console.log(err))
+        console.log(ContentStore.getContent()[props.index])
+        //console.log(props.index)
+    }
+    const handleReference = () =>
+    {
+        axios({
+            method: 'post',
+            url: "https://689e-113-22-113-75.ap.ngrok.io/api/user_interact/",
+            data: {
+                sentence: props.text,
+                prompt: "Show me the references"
+            }
+        })
+            .then(res => setReference(res.data.payload))
+            .catch(err => console.log(err))
+        //setReference(props.text)
     }
     return (
         <Popup
@@ -43,7 +60,11 @@ export const PopupComments = (props) =>
         >
             {close => (
                 <VuiBox py={3} marginBottom={5} bgColor="#66C4E8" sx={{ zIndex: 8 }} paddingTop={1} width={500} borderRadius={20}>
-                    <VuiBox variant="button" onClick={() => close()} bgColor="#E6F2F7" sx={{
+                    <VuiBox variant="button" onClick={() =>
+                    {
+                        close()
+                        setReference(null)
+                    }} bgColor="#E6F2F7" sx={{
                         color: "black", '&:hover': {
                             backgroundColor: 'red',
                         },
@@ -61,10 +82,10 @@ export const PopupComments = (props) =>
                         {props.text.slice(0, 40) + "..."}
                     </VuiTypography>
                     <VuiBox sx={{ overflowX: "hidden", margin: 1, padding: 1 }} display="flex" flexDirection="column" gap={2}>
-                        <VuiButton color="info" width="100%" onClick={() => handleFeedback("Explain more about this")}>
+                        <VuiButton color="info" width="100%" onClick={handleExplain}>
                             Explain more about this
                         </VuiButton>
-                        <VuiButton color="info" width="100%" onClick={() => handleFeedback("Show me the references")}>
+                        <VuiButton color="info" width="100%" onClick={handleReference}>
                             Show me the references
                         </VuiButton>
                         {/* <List>
@@ -97,6 +118,9 @@ export const PopupComments = (props) =>
                                 </VuiTypography>
                             </ListItem>))}
                         </List> */}
+                        <VuiTypography variant="caption" m={1}>
+                            {reference}
+                        </VuiTypography>
                     </VuiBox>
                     {/* <VuiBox margin={2} mt={5} height="35%" >
                         <TextField borderRadius={20} sx={{ width: "80%", borderRadius: 30 , marginBottom: 5}} fullWidth={true} onChange={(e) => setFeedback(e.target.value)}></TextField>
