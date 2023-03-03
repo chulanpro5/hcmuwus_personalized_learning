@@ -58,6 +58,7 @@ export const PopupComments = (props) => {
             .then(res => setReference(res.data.payload))
             .catch(err => console.log(err))
         //setReference(props.text)
+        //idk
     }
     return (
         <Popup
