@@ -7,7 +7,11 @@ import { NoteSection } from "./NoteSection";
 const Notes = () => {
   const notes = NotesStore.getNotes();
   console.log(notes);
-
+  const [nStatusBooks, setNStatusBooks] = useState(['Book 1', 'Book 2']);
+  const [inProgressBooks, setInProgressBooks] = useState(['Book 1', 'Book 2']);
+  const [reviewingBooks, setReviewingBooks] = useState(['Book 1', 'Book 2']);
+  const [completedBooks, setCompletedBooks] = useState(['Book 1', 'Book 2']);
+  
   return (
     <DashboardLayout>
       <VuiBox width='100%' height='50.5rem'>
@@ -20,10 +24,10 @@ const Notes = () => {
           }
         })}
         style={{alignItems: 'center'}}>
-          <NoteSection backgroundColor="#C9C9C9" title='No status' titleColor='#EEEEEE' books={['Book 1', 'Book 2']}/>
-          <NoteSection backgroundColor="#E5D9A5" title='In progress' titleColor='#FDEA9D' books={['Book 1', 'Book 2']}/>
-          <NoteSection backgroundColor="#A5DAE5" title='Reviewing' titleColor='#9DEBFD' books={['Book 1', 'Book 2']}/>
-          <NoteSection backgroundColor="#A5E5BF" title='Completed' titleColor='#9DFDC3' books={['Book 1', 'Book 2']}/>
+          <NoteSection backgroundColor="#C9C9C9" title='No status' titleColor='#EEEEEE' books={nStatusBooks} updateBooks={setNStatusBooks}/>
+          <NoteSection backgroundColor="#E5D9A5" title='In progress' titleColor='#FDEA9D' books={inProgressBooks} updateBooks={setInProgressBooks}/>
+          <NoteSection backgroundColor="#A5DAE5" title='Reviewing' titleColor='#9DEBFD' books={reviewingBooks} updateBooks={setReviewingBooks}/>
+          <NoteSection backgroundColor="#A5E5BF" title='Completed' titleColor='#9DFDC3' books={completedBooks} updateBooks={setCompletedBooks}/>
         </Grid>
       </VuiBox>
     </DashboardLayout>

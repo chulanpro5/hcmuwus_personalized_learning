@@ -9,7 +9,7 @@ export const SideBar = (props) => {
     const [opened, setOpen] = useState(false);
     return (
         <Grid item xs={12} lg={1.75} maxHeight='47.5rem'>
-            <VuiBox bgColor="light" height="100%" width="100%" borderRadius="lg" p={1} pt={3} >
+            <VuiBox bgColor="#CCEBF7" height="100%" width="100%" borderRadius="lg" p={1} pt={3} >
                 <VuiBox display="flex"
                     justifyContent="top"
                     alignItems="center"

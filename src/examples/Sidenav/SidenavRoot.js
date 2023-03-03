@@ -85,6 +85,7 @@ export default styled(Drawer)(({ theme, ownerState }) => {
             gradients.sidenav.deg
           ),
     backdropFilter: transparentSidenav ? "unset" : "blur(120px)",
+    backgroundColor: "#9DEBFD",
       ...(miniSidenav ? drawerCloseStyles() : drawerOpenStyles()),
     },
   };

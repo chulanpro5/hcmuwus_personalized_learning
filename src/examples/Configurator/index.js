@@ -93,19 +93,20 @@ function Configurator() {
   return (
     <ConfiguratorRoot variant="permanent" ownerState={{ openConfigurator }} >
       <VuiBox
-        backgroundColor="black"
+        bgColor="#9DFDC3"
         display="flex"
         justifyContent="space-between"
         alignItems="baseline"
+        borderRadius="10px"
         pt={3}
         pb={0.8}
         px={3}
       >
         <VuiBox>
-          <VuiTypography color="white" variant="h5" fontWeight="bold">
+          <VuiTypography color="black" variant="h5" fontWeight="bold">
             My Thorch
           </VuiTypography>
-          <VuiTypography variant="body2" color="white" fontWeight="bold">
+          <VuiTypography variant="body2" color="black" fontWeight="bold">
             Currently on mantenance
           </VuiTypography>
         </VuiBox>
@@ -126,45 +127,6 @@ function Configurator() {
       </VuiBox>
 
       <Divider light />
-
-      <VuiBox pt={1.25} pb={3} px={3}>
-        <VuiBox>
-          <VuiTypography variant="h6" color="white">
-            Choose your favorite
-          </VuiTypography>
-
-          <VuiBox mb={0.5}>
-            {sidenavColors.map((color) => (
-              <IconButton
-                key={color}
-                sx={({ borders: { borderWidth }, palette: { white, dark }, transitions }) => ({
-                  width: "24px",
-                  height: "24px",
-                  padding: 0,
-                  border: `${borderWidth[1]} solid ${white.main}`,
-                  borderColor: sidenavColor === color && dark.main,
-                  transition: transitions.create("border-color", {
-                    easing: transitions.easing.sharp,
-                    duration: transitions.duration.shorter,
-                  }),
-                  backgroundImage: ({ functions: { linearGradient }, palette: { gradients } }) =>
-                    linearGradient(gradients[color].main, gradients[color].state),
-
-                  "&:not(:last-child)": {
-                    mr: 1,
-                  },
-
-                  "&:hover, &:focus, &:active": {
-                    borderColor: dark.main,
-                  },
-                })}
-                onClick={() => setSidenavColor(dispatch, color)}
-              />
-            ))}
-          </VuiBox>
-        </VuiBox>
-        <Divider light />
-      </VuiBox>
     </ConfiguratorRoot>
   );
 }

@@ -62,6 +62,7 @@ export default styled(Drawer)(({ theme, ownerState }) => {
       height: "100vh",
       margin: 0,
       padding: `0 ${pxToRem(10)}`,
+      backgroundColor: "#A5E5BF",
       borderRadius: 0,
       boxShadow: lg,
       overflowY: "auto",
