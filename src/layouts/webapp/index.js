@@ -54,6 +54,7 @@ function Webapp() {
   const [openai, setOpenai] = useState(null);
   const [content, useContent] = useState(null);
   const [loading, setLoading] = useState(false);
+  
 
   const handleSubmit = (e) => {
     setLoading(true);
@@ -68,8 +69,12 @@ function Webapp() {
       .then(res => {
         useContent(JSON.parse(res.data.payload))
         ContentStore.fetchData(JSON.parse(res.data.payload))
+        setLoading(false)
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err)
+        setLoading(false)
+      })
   }
 
   const handleAddNote = () => {
@@ -93,10 +98,10 @@ function Webapp() {
               height="100%"
               bgColor="light"
               borderRadius={"lg"}>
-              {content !== null ? (
+              {content ? (
                 <VuiBox height="34.5rem">
                   <VuiTypography opacity={0.5} p='0.4rem' mr='1rem'>
-                    {url + `: ` + content[0][0].slice(0, 200) + `...`}
+                    {url + `: ` + content[0][0].slice(0, 50) + `...`}
                   </VuiTypography>
                   <DocumentGenerator document={ContentStore.getContent()} />
                   <VuiBox display="flex" gap='3rem' justifyContent="flex-end" m='1rem'>
@@ -106,7 +111,6 @@ function Webapp() {
                     </VuiButton>
                     <VuiButton color="info" sx={{ width: '8rem', '&:hover': { backgroundColor: 'darkred'}}} onClick={() => {
                       useContent(null)
-                      setLoading(false)
                     }}>
                       Cancel
                     </VuiButton>

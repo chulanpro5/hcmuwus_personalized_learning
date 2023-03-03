@@ -3,6 +3,7 @@ import VuiBox from 'components/VuiBox';
 import VuiTypography from 'components/VuiTypography';
 import { useState, useEffect } from 'react';
 import { PopupComments } from "./PopupComments";
+import { observer } from 'mobx-react';
 
 export const ParagraphComponent = (props) => {
     const [pColor, setPColor] = useState('#8dadf7');

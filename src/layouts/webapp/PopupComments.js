@@ -9,13 +9,14 @@ import VuiTypography from 'components/VuiTypography';
 import { IoIosSend } from 'react-icons/io';
 import axios from 'axios';
 import ContentStore from "stores/ContentStore";
+import LoadingSpin from "react-loading-spin";
 
 
 export const PopupComments = (props) => {
     const colors = ["#E6F2F7", "#007EAE"];
     //const [commands, setCommands] = useState(["Explain more about this", "Show me the references"]);
     const [reference, setReference] = useState(null);
-    const [explaining, setExplaining] = useState(false);
+    const [explain, setExplain] = useState(false);
 
     function delay(time)
     {
@@ -25,7 +26,7 @@ export const PopupComments = (props) => {
     const handleExplain = () =>
     {
         //if (command!=="Explain more about this" && command!=="Show me the references") return;
-
+        setExplain(true)
         axios({
             method: 'post',
             url: "https://689e-113-22-113-75.ap.ngrok.io/api/user_interact/",
@@ -34,9 +35,13 @@ export const PopupComments = (props) => {
                 prompt: "Explain more about this"
             }
         })
-            .then(res => ContentStore.updateContent(JSON.parse(res.data.payload), props.index))
-            .catch(err => console.log(err))
-        console.log(ContentStore.getContent()[props.index])
+            .then(res => {
+                ContentStore.updateContent(JSON.parse(res.data.payload), props.index)
+                setExplain(false)})
+            .catch(err => {
+                console.log(err)
+                setExplain(false)
+            })
         //console.log(props.index)
     }
     const handleReference = () =>
@@ -61,8 +66,9 @@ export const PopupComments = (props) => {
         >
             {close => (
                 <VuiBox py={3} marginBottom={5} bgColor="#66C4E8" sx={{ zIndex: 8 }} p={2} width={500} borderRadius={20}>
-                    <VuiBox width="100%" textAlign="right">
-                        <VuiButton color="error" onClick={() => close()}>
+                    <VuiBox width="100%" display="flex" justifyContent="flex-end" alignItems="center" gap={1}>
+                        {explain && <LoadingSpin size="3rem"/>}
+                        <VuiButton color="error" onClick={() => close()} disabled={explain} mx={1}>
                             Close
                         </VuiButton>
                     </VuiBox>
@@ -70,10 +76,10 @@ export const PopupComments = (props) => {
                         <VuiTypography variant="overline" m={2}>
                             {props.text}
                         </VuiTypography>
-                        <VuiButton color="info" width="100%" onClick={handleExplain}>
+                        <VuiButton color="info" width="100%" onClick={handleExplain} disabled={explain}>
                             Explain more about this
                         </VuiButton>
-                        <VuiButton color="info" width="100%" onClick={handleReference}>
+                        <VuiButton color="info" width="100%" onClick={handleReference} disabled={explain}>
                             Show me the references
                         </VuiButton>
                         {/* <List>
@@ -109,6 +115,7 @@ export const PopupComments = (props) => {
                         <VuiTypography variant="caption" m={1}>
                             {reference}
                         </VuiTypography>
+                        
                     </VuiBox>
                 </VuiBox>
             )}
