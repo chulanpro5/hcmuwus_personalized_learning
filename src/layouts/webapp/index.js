@@ -95,12 +95,12 @@ function Webapp() {
             <VuiBox
               p={3}
               height="100%"
-              bgColor="#CCEBF7"
+              //bgColor="#CCEBF7"
               borderRadius={"lg"}>
               {content ? (
-                <VuiBox height="34.5rem">
-                  <VuiTypography opacity={0.5} pb='2rem'  maxHeight="1rem">
-                    {url + `: ` + content[0][0].slice(0, 75) + `...`}
+                <VuiBox height="43.5rem" style={{}}>
+                  <VuiTypography opacity={0.5} pb='2rem'  maxHeight="1rem" ml='2rem'>
+                    {url + `: ` + content[0][0].slice(0, 50) + `...`}
                   </VuiTypography>
 
                   <VuiBox borderRadius="1.5rem" border="1px solid" height="100%" padding="2rem" pr="0rem" sx={{ backgroundColor: 'white'}}>

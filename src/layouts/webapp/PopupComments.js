@@ -69,12 +69,12 @@ export const PopupComments = (props) => {
                 <VuiBox py={3} marginBottom={5} bgColor="#fff" sx={{ zIndex: 8 }} p={2} width={500} borderRadius={20}>
                     <VuiBox width="100%" display="flex" justifyContent="flex-end" alignItems="center" gap={1}>
                         {explain && <LoadingSpin size="3rem"/>}
-                        <VuiButton color="error" borderRadius="1000px" onClick={() => close()} disabled={explain} mx={1}>
-                            <CloseIcon/>
+                        <VuiButton color="error" onClick={() => close()}  mx={1} disabled={explain} style={{ borderRadius: '50rem', }}>
+                            <CloseIcon />
                         </VuiButton>
                     </VuiBox>
                     <VuiBox sx={{ overflowX: "hidden"}} display="flex" flexDirection="column" gap={2}>
-                        <VuiTypography variant="overline" m={2}>
+                        <VuiTypography variant="overline" m={2} style={{fontSize: '1rem'}}>
                             {props.text}
                         </VuiTypography>
                         <VuiButton color="info" width="100%" onClick={handleExplain} disabled={explain}>
