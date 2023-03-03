@@ -7,35 +7,40 @@ import { ImageList } from "@mui/material";
 import { ImageListItem } from "@mui/material";
 import { Grid } from "@mui/material";
 import gif from "assets/images/welcome-profile.png";
+import wave from "assets/images/wave.png";
 
 const WelcomeMark = () => {
   return (
     <Card sx={() => ({
-      height: "300px",
-      width: "1050px",
-      py: "32px",
+      height: "18rem",
+      width: "65rem",
+      //py: "32px",
       backgroundColor: "#66C4E8",
       backgroundSize: "cover",
       backgroundPosition: "50%",
+      marginTop:0,
+       paddingTop:0,
+       marginLeft: '3rem'
       
     })}>
       <VuiBox height="100%" display="flex" flexDirection="column" justifyContent="space-between">
         <Grid container direction="row" columns={16} width={1000}>
-          <Grid item width={650}>
+          <Grid item xs={10} sx={{marginTop:2}}>
             <VuiBox >
-              <VuiTypography color="text" fontWeight="bold">
-              <h1 style={{fontSize: 50, margin: 5, marginBottom: 30}}>Welcome back, Ayo</h1>
+              <VuiTypography sx={{margin: 5}} color="white" fontWeight="bold" variant="h1">
+              Welcome back, Ayo {" "}
+              <img src={wave} width="45rem" height="45rem" />
               </VuiTypography>
             </VuiBox>
-            <VuiTypography color="text" fontWeight="regular">
-              <p style={{fontSize: 20, margin: 5, marginBottom: 7}}>You've spent <b>70%</b> more time learning than last week! <br /></p>
+            <VuiTypography sx={{margin: 5}} color="white" fontWeight="regular" variant="p">
+              You've spent <b>70%</b> more time learning than last week! <br />
             </VuiTypography>
-            <VuiTypography color="text" fontWeight="regular">
-              <p style={{fontSize: 20, margin: 5, marginBottom: 7}}>Keep up the great work!</p>
+            <VuiTypography sx={{margin: 5}} color="white" fontWeight="regular" variant="p">
+              Keep up the great work!
             </VuiTypography>
           </Grid>
-          <Grid item width={350} paddingLeft={13} height={250}>
-            <img src={gif} width={230} height={230} />
+          <Grid item xs={6} width="100%" paddingLeft={6} sx={{marginTop:0, paddingTop:0}}>
+            <img src={gif} width="290rem" height="290rem" />
           </Grid>
         </Grid>
       </VuiBox>

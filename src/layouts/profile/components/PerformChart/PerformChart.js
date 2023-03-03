@@ -67,17 +67,17 @@ function PerformanceChart(props) {
       },
       xaxis: {
         categories: props.store !== null ? props.store.getDays : [
-          ['Monday', '12-07-2022'],
-          ['Tuesday', '13-07-2023'],
-          ['Wednesday', '14-07-2023'],
-          ['Thursday', '15-07-2023'],
-          ['Friday', '16-07-2022'],
-          ['Saturday', '17-07-2023'],
-          ['Sunday', '18-07-2023'],
+          ['MON', '12-07-2022'],
+          ['TUE', '13-07-2023'],
+          ['WED', '14-07-2023'],
+          ['WED', '15-07-2023'],
+          ['FRI', '16-07-2022'],
+          ['SAT', '17-07-2023'],
+          ['SUN', '18-07-2023'],
         ],
         labels: {
           style: {
-            colors: "#0077FF",
+            colors: "#333333",
             fontSize: '12px',
             fontWeight: 'bold'
           }
@@ -90,10 +90,10 @@ function PerformanceChart(props) {
   }
   return (
     <Paper sx={{ width: 500, borderRadius: 10, height: 360, margin: 5, padding: 3 }} >
-      <VuiTypography color="black" variant="lg" fontWeight="bold" sx={{fontSize: 30, marginLeft: 31}}>
+      <VuiTypography color="dark" variant="h3" fontWeight="bold" sx={{marginLeft: 2, marginBottom: 1, marginTop: 0, }}>
         Performance
       </VuiTypography>
-      <ReactApexChart options={state.options} series={state.series} type="bar" height={280} width={440} padding={2}/>
+      <ReactApexChart options={state.options} series={state.series} type="bar" height={260} width={440} padding={2}/>
     </Paper >
   );
 }
