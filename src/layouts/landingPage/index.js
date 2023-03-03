@@ -43,13 +43,13 @@ function Landing() {
           >
             <Grid sx={{ margin: "10%", padding: 5 }} item>
               <VuiTypography sx={{ marginBottom: 4 }} color={"black"} variant="h1" fontWeight="bold" >
-                Personalized learning for everyone
+              Revolutionizes Users' Interaction with Documents
               </VuiTypography>
               <hr marginTop="10px" height="2px" borderWidth="0" color="black" backgroundColor="gray" width="50%"></hr>
 
               <VuiTypography sx={{ marginTop: 7, textAlign: "justify" }} color="dark" variant="h5" fontWeight="regular" >
-                Personalized learning is an increasingly popular and important educational approach in modern education. This concept refers to customizing the learning process for each student based on their needs, interests, abilities, and learning styles. The goal of personalized learning is to enhance the effectiveness of learning by tailoring the content to fit each individual.
-              </VuiTypography>
+              This is a revolutionary document interaction app that leverages user behavior to embed vectors and store them in a Redis vector database. This process creates a long-term memory AI that truly understands the user's needs and preferences, leading to a highly efficient reading experience.
+                </VuiTypography>
               <VuiButton sx={{
                 marginTop: 3, paddingTop: 2, paddingBottom: 2, paddingLeft: 3, paddingRight: 3, width: "40%", height: "13%", borderRadius: 10,}} variant="contained" color="info" href="/authentication/sign-in">
                   <VuiTypography variant='lg' sx={{ fontSize: 20, fontWeight: 'bold'}} color='light'>Explore more</VuiTypography>
