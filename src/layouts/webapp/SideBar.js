@@ -8,7 +8,7 @@ import { useState } from "react";
 export const SideBar = (props) => {
     const [opened, setOpen] = useState(false);
     return (
-        <Grid item xs={12} lg={1.75}>
+        <Grid item xs={12} lg={1.75} maxHeight='47.5rem'>
             <VuiBox bgColor="light" height="100%" width="100%" borderRadius="lg" p={1} pt={3} >
                 <VuiBox display="flex"
                     justifyContent="top"
@@ -18,7 +18,9 @@ export const SideBar = (props) => {
                     px="25%"
                     bgColor="light"
                     marginTop={-2}>
-                    <VuiButton variant="contained" color="info" padding={1} onClick={() => setOpen(!opened)}>
+                    <VuiButton variant="contained" color="info" padding='0.5rem' sx={{'&:hover': {
+                        backgroundColor: 'green'
+                    }}}onClick={() => setOpen(!opened)}>
                         <MdFolder size="15px" color="inherit" />
                         <VuiTypography variant="lg" color="light" mx={1} >
                             Directory
@@ -28,7 +30,6 @@ export const SideBar = (props) => {
                 {opened && ( <VuiBox sx={{ overflowY: "scroll", overflowX: "hidden" }} height="95%">
                     {props.folders.map(folder => <Folder name={folder.name} books={folder.books} />)}
                 </VuiBox>)}
-
             </VuiBox>
         </Grid>
     )
