@@ -3,15 +3,10 @@
 	"version": "3.0.0",
 	"private": true,
 	"author": "HCMwUS",
-	"license": "See license in https://www.creative-tim.com/license",
-	"description": "Material UI version of Vision UI Dashboard by Creative Tim",
-	"homepage": "https://demos.creative-tim.com/vision-ui-dashboard-react/#/dashboard",
-	"bugs": {
-		"url": "https://github.com/creativetimofficial/vision-ui-dashboard-react/issues"
-	},
+	"description": "",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/creativetimofficial/vision-ui-dashboard-react.git"
+		"url": ""
 	},
 	"dependencies": {
 		"@date-io/date-fns": "^1.3.13",
