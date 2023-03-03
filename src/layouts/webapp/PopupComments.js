@@ -30,7 +30,7 @@ export const PopupComments = (props) => {
         setExplain(true)
         axios({
             method: 'post',
-            url: "https://689e-113-22-113-75.ap.ngrok.io/api/user_interact/",
+            url: "https://9437-113-22-113-75.ap.ngrok.io/api/user_interact/",
             data: {
                 sentence: props.text,
                 prompt: "Explain more about this"
