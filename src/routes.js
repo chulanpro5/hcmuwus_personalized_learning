@@ -54,7 +54,6 @@ import { IoBuild } from "react-icons/io5";
 import { BsCreditCardFill } from "react-icons/bs";
 import { IoStatsChart } from "react-icons/io5";
 import { IoHome } from "react-icons/io5";
-import Chatbot from "layouts/chatbot";
 import Notes from "layouts/notes";
 
 const routes = [
@@ -142,18 +141,9 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Chatbot",
-    key: "chatbot",
-    route: "/chatbot",
-    icon: <IoRocketSharp size="15px" color="inherit" />,
-    component: Chatbot,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
     name: "Landing Page",
     key: "landing-page",
-    route: "/landing page",
+    route: "/",
     icon: <IoRocketSharp size="15px" color="inherit" />,
     component: Landing,
     noCollapse: true,
