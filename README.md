@@ -1,5 +1,19 @@
 # Link to server
-https://github.com/chulanpro5/MyThourch_backend
+[MyThorch backend](https://github.com/chulanpro5/MyThourch_backend)
+
+# Using instructions
+- First, go to [MyThorch](https://hcmuwus-personalized-learning.vercel.app/)
+- Click on `explore more`
+- Click on `Sign in` (doesn't require login)
+- Click on `Webapp`
+- Fill in `OPENAI API KEY` (we won't save it) & `Website URL`
+- Enjoy !
+
+![alt text](https://lablab.ai/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Flablab-static-eu%2Fimages%252Fsubmissions%252Fclet41ml700c63j6w3xw9rguc%252Fcleif25vd009i356pxt9cjwvc_o303wc3_imageLink.jpg&w=828&q=75)
+
+# Important note
+- Due to constraints in tokenization and optimization, the input data will be cutoff after 2000 characters
+- Multiple users does not working right now
 
 # [Vision UI Free React](https://demos.creative-tim.com/vision-ui-dashboard-react) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https://www.creative-tim.com/product/vision-ui-dashboard-react&text=Check%20Vision%20UI%20Dashboard%20made%20by%20@simmmple_web%20and%20@CreativeTim%20#webdesign%20#dashboard%20#react)
 
